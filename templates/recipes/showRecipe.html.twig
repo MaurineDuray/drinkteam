@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Titre de la recette{% endblock %}
+
+{% block body %}
+<div class="slide">
+    <h1>{{recipe.title}}</h1>
+    <p>par <i>{{recipe.idUser.pseudo}}</i></p>
+    <div class="card-orange">
+        <p>Durée : {{recipe.time}} min</p>
+        <p>Budget : {{recipe.budget}}</p>
+        <p>Niveau de la recette: {{recipe.level}}</p>
+    </div>
+    <h4>Ingrédients:</h4>
+    <p>{{recipe.ingredient}}</p>
+    <h4>Préparation : </h4>
+    <p>{{recipe.steps}}</p>
+</div>
+{% endblock %}

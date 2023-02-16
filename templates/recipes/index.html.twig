@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les recettes{% endblock %}
+
+{% block body %}
+
+<div class="slide container-fluid" id="recipes">
+   
+
+    <div class="container my-4">
+        <div class="card categories p-4">
+            <div class="row">
+                
+                <div class="drink btn  col-md mx-3">
+                    <i class="fa-regular fa-mug-hot"></i>
+                    <p><a href="">Les cafés</a></p>
+                </div>
+                <div class="drink btn col-md mx-3">
+                    <i class="fa-regular fa-mug-tea"></i>
+                    <p><a href="">Les thés</a></p>
+                </div>
+                <div class="drink btn col-md mx-3">
+                    <i class="fa-regular fa-glass"></i>
+                    <p><a href="">Les limonades</a></p>
+                </div>
+                <div class="drink btn col-md mx-3">
+                    <i class="fa-solid fa-martini-glass-citrus"></i>
+                    <p><a href="">Les moktails</a></p>
+                </div>
+                <div class="drink btn col-md mx-3">
+                    <i class="fa-light fa-martini-glass"></i>
+                    <p><a href="">Les coktails</a></p>
+                </div> 
+            </div>
+        </div>
+    </div>
+
+    <div class="container ">
+        <h2 class="orange">Toutes les recettes </h2>
+        <div class="row d-flex justify-content-evenly">
+            {% for recipe in recipes %}
+                <div class="col-md-3 card mx-3 mt-3">
+                    <div class="like"><i class="fa-regular fa-heart"></i></div>
+                    <img src="https://temps-de-cuisson.fr/wp-content/uploads/2021/10/infusion-the-1.jpg" class="card-img-top mt-3 img-fluid" alt="">
+                    <div class="card-body">
+                        <div class="category">{{recipe.category}}</div>
+                        <div class="card-title">{{recipe.title}}</div>
+                        <div class="card-text">{{recipe.note}}</div>
+                        <div class="card-text">
+                            <p>{{recipe.time}} min</p>
+                            <p>{{recipe.level}}</p>
+                            <p>{{recipe.budget}}</p>
+                        </div>
+                        <a href="{{path('show_recipe', {"slug": recipe.slug})}}" class="btn btn-warning">Voir la recette</a>
+                    </div>
+                </div>
+            {% endfor %}
+            
+            
+        </div>
+       
+        
+    </div>
+    
+
+</div>
+
+{% endblock %}
