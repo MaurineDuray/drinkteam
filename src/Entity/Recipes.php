@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\RecipesRepository;
 
+#[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: RecipesRepository::class)]
 class Recipes
 {
@@ -24,7 +25,7 @@ class Recipes
     #[ORM\Column(length: 255)]
     private ?string $level = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $note = null;
 
     #[ORM\Column(length: 255)]
@@ -64,7 +65,7 @@ class Recipes
     public function initializeSlug():void{
         if (empty($this->slug)){
             $slugify = new Slugify();
-            $this->slug = $slugify->slugify($this->title.''.rand());
+            $this->slug = $slugify->slugify($this->title);
         }
     }
 
@@ -218,6 +219,6 @@ class Recipes
         return $this;
     }
 
-    
+
    
 }

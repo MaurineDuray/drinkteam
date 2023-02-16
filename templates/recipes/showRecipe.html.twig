@@ -3,17 +3,38 @@
 {% block title %}Titre de la recette{% endblock %}
 
 {% block body %}
-<div class="slide">
-    <h1>{{recipe.title}}</h1>
-    <p>par <i>{{recipe.idUser.pseudo}}</i></p>
-    <div class="card-orange">
-        <p>Durée : {{recipe.time}} min</p>
-        <p>Budget : {{recipe.budget}}</p>
-        <p>Niveau de la recette: {{recipe.level}}</p>
+<div class="slide container">
+<a href="{{path('recettes_index')}}"><button class="btn btn-warning m-3"><i class="fa-solid fa-arrow-left"></i> Retour aux recettes</button></a>
+    {% if recipe.idUser.id == app.user.id or app.user.roles[0] == "ROLE_ADMIN" %}
+        <a href="{{path('recettes_index')}}"><button class="btn btn-success m-3"><i class="fa-solid fa-pen-to-square"></i> Editer la recette</button></a>
+        <a href="{{path('recettes_index')}}"><button class="btn btn-danger m-3"><i class="fa-solid fa-trash"></i> Supprimer la recette</button></a>
+    {% endif %}
+    <div class="row">
+        <div class="col-md picture">
+            <img src="../uploads/{{recipe.image}}" alt="" class="card-img img-fluid">
+        </div>
+        <div class="col-md">
+            <h1>{{recipe.title}}</h1>
+            <p>par <i>{{recipe.idUser.pseudo}}</i></p>
+            <div class="card-orange infos">
+                <p>Durée : {{recipe.time}} min</p>
+                <p>Budget : {{recipe.budget}}</p>
+                <p>Niveau de la recette: {{recipe.level}}</p>
+            </div>
+            <div class="card p-3 my-4">
+                <h4>Ingrédients:</h4>
+                <p>{{recipe.ingredient|nl2br}}</p>
+            </div>
+            
+        </div>
     </div>
-    <h4>Ingrédients:</h4>
-    <p>{{recipe.ingredient}}</p>
-    <h4>Préparation : </h4>
-    <p>{{recipe.steps}}</p>
+    
+    
+    <div class="card p-3 my-3">
+        
+        <h4>Préparation : </h4>
+        <p>{{recipe.steps|nl2br}}</p>
+    </div>
+   
 </div>
 {% endblock %}

@@ -35,6 +35,18 @@ nav span{
     text-transform: none !important;
     line-height: 20px !important;
 }
+.btn-danger{
+    min-height: 40px;
+    padding: 10px !important;
+    text-transform: none !important;
+    line-height: 20px !important;
+}
+.btn{
+    min-height: 40px;
+    padding: 10px !important;
+    text-transform: none !important;
+    line-height: 20px !important;
+}
 .d-flex{
     margin-top: 20px;
 }
@@ -48,6 +60,7 @@ nav span{
 .card-orange{
     background-color:#ff990046;
     padding: 30px;
+    border-radius: 15px;
 
 }
 .card-text{
@@ -129,6 +142,20 @@ nav span{
 #recipes{
     min-height: 100vh;
 }
+
+/* Recette solo */
+.infos{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.picture{
+    display: flex;
+    align-items: center;
+}
+
+/* Footer ****** */
 
 footer{
     padding: 0;

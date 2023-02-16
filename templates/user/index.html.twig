@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User - {{user.pseudo}}{% endblock %}
+
+{% block body %}
+<div class="slide container">
+<a href="{{path('recettes_index')}}"><button class="btn btn-warning m-3"><< Retour aux recettes</button></a>
+    <div class="row">
+        <div class="card col-md">
+            <img src="../uploads/{{user.avatar}}" alt="" class="card-img img-fluid">
+        </div>
+        <div class="col-md">
+            <h1>Utilisateur : {{user.pseudo}}</h1>
+           
+            <div class="card-orange">
+                <p>Pseudo : {{user.pseudo}}</p>
+                <p>Email : {{user.email}}</p>
+                <p>Slug : {{user.slug}}</p>
+                <button class=" btn btn-warning"><i class="fa-solid fa-pen-to-square"></i> Modifier mes informations</button>
+                <button class=" btn btn-danger my-3"><i class="fa-solid fa-pen-to-square"></i> Modifier mon mot de passe</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container my-5">
+    <h3 class="orange">Les recettes de {{user.pseudo}}</h3>
+    <div class="row d-flex justify-content-evenly">
+    {% if user.recettes | length > 0 %}
+        {% for recipe in user.recettes %}
+             <div class="col-md-3 card mx-3 mt-3">
+                <div class="like"><i class="fa-regular fa-heart"></i></div>
+                <img src="../uploads/{{recipe.image}}" class="card-img-top mt-3 img-fluid" alt="">
+                <div class="card-body">
+                    <div class="category">{{recipe.category}}</div>
+                    <div class="card-title">{{recipe.title}}</div>
+                    <div class="card-text">{{recipe.note}}</div>
+                    <div class="card-text">
+                        <p>{{recipe.time}} min</p>
+                        <p>{{recipe.level}}</p>
+                        <p>{{recipe.budget}}</p>
+                    </div>
+                    <div class="raw d-flex justify-content-around">
+                        <a href="{{path('show_recipe', {"slug": recipe.slug})}}" class="btn btn-warning"><i class="fa-sharp fa-solid fa-eye"></i> Voir la recette</a>
+                        <a href="{{path('recettes_index')}}"><button class="btn btn-success"><i class="fa-solid fa-pen-to-square"></i>Editer</button></a>
+                        <a href="{{path('recettes_index')}}"><button class="btn btn-danger "><i class="fa-solid fa-trash"></i>Supprimer</button></a>
+                    </div>
+                   
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+       
+    </div>
+</div>
+{% endblock %}

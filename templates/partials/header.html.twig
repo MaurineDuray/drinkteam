@@ -19,13 +19,24 @@
             <i class="fa-solid fa-user"></i>
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{{path('account_login')}}">Connexion</a></li>
-            <li><a class="dropdown-item" href="#">Créer un compte</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Mon profil</a></li>
-            <li><a class="dropdown-item" href="{{path('new_recipe')}}">Publier une recette</a></li>
-            <li><a class="dropdown-item" href="#">Administration</a></li>
-            <li><a class="dropdown-item" href="{{path('account_logout')}}">Déconnexion</a></li>
+            {% if app.user %}
+              
+              <li><a class="dropdown-item" href="{{path('new_recipe')}}">Publier une recette</a></li>
+              <li><a class="dropdown-item" href="{{path('profile')}}">Mon profil</a></li>
+              {% if app.user.roles[0] == "ROLE_ADMIN" %}
+                <li><a class="dropdown-item" href="#">ADMINISTRATION</a></li>
+              {% endif %}
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{{path('account_logout')}}">Déconnexion</a></li>
+            {% else %}
+              <li><a class="dropdown-item" href="{{path('account_login')}}">Connexion</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{{path('register')}}">Créer un compte</a></li>
+            {% endif %}
+            
+           
+            
+            
           </ul>
         </li>
       </ul>

@@ -13,6 +13,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
+
 class RecipesController extends AbstractController
 {
     /**
@@ -66,6 +67,9 @@ class RecipesController extends AbstractController
                 $recipe->setImage($newFilename);
             }
 
+            $recipe->setIdUser($this->getUser());
+     
+
             $manager->persist($recipe);
             $manager->flush();
 
@@ -77,7 +81,7 @@ class RecipesController extends AbstractController
                 "L'annonce <strong>{$recipe->getTitle()} - {$recipe->getCategory()}</strong> a bien été enregistrée!"
             );
 
-            return $this->redirectToRoute('voitures_show', [
+            return $this->redirectToRoute('show_recipe', [
                 'slug' => $recipe->getSlug()
             ]);
         }
