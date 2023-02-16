@@ -39,6 +39,20 @@ class RecipesRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+    * @return Recipes[] Returns an array of Recipes objects
+    */
+    public function findByLast(int $limit): array
+    {
+       return $this->createQueryBuilder('r')
+           ->select('r as recipe')
+           ->orderBy('r.id', 'DESC')
+           ->setMaxResults($limit)
+           ->getQuery()
+           ->getResult()
+       ;
+    }
+
 //    /**
 //     * @return Recipes[] Returns an array of Recipes objects
 //     */

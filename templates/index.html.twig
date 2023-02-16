@@ -5,25 +5,26 @@
 {% block body %}
     <div class="slide container-fluid " id="home">
         <div id="txt-header">
-            <h1 class="my-1">Drink <b>Tea'</b>mh</h1>
+            <h1 class="my-1"><i class="fa-solid fa-martini-glass-citrus"></i> Drink <b>Tea'</b>mh</h1>
             <br><p>Le rendez-vous des amateurs de boissons maisons !</p>
         </div>
         
     </div>
     <div class="container my-4">
         <div class="card categories p-4">
+            <p>Filtrer les recettes :</p>
             <div class="row">
                 
                 <div class="drink btn  col-md mx-3">
-                    <i class="fa-regular fa-mug-hot"></i>
+                    <i class="fa-solid fa-coffee-pot"></i>
                     <p><a href="">Les cafés</a></p>
                 </div>
                 <div class="drink btn col-md mx-3">
-                    <i class="fa-regular fa-mug-tea"></i>
+                    <i class="fa-regular fa-mug"></i>
                     <p><a href="">Les thés</a></p>
                 </div>
                 <div class="drink btn col-md mx-3">
-                    <i class="fa-regular fa-glass"></i>
+                    <i class="fa-solid fa-whiskey-glass"></i>
                     <p><a href="">Les limonades</a></p>
                 </div>
                 <div class="drink btn col-md mx-3">
@@ -31,7 +32,7 @@
                     <p><a href="">Les moktails</a></p>
                 </div>
                 <div class="drink btn col-md mx-3">
-                    <i class="fa-light fa-martini-glass"></i>
+                    <i class="fa-solid fa-martini-glass"></i>
                     <p><a href="">Les coktails</a></p>
                 </div> 
             </div>
@@ -43,43 +44,34 @@
  
 
         <div class="container ">
-            <h3 class="orange">Les dernières recettes </h3>
+            <h3 class="orange">Les dernières recettes en ligne </h3>
             <div class="row">
+            {% for data in recipes %}
                 <div class="col-md card mx-3">
                     <div class="like"><i class="fa-regular fa-heart"></i></div>
-                    <img src="https://resize.prod.docfr.doc-media.fr/s/1200/ext/eac4ff34/content/2022/7/5/the-sante-b031d81615e9e277.jpeg" class="card-img mt-3" alt="">
+                    <img src="../uploads/{{data.recipe.image}}" class="card-img mt-3" alt="">
                     <div class="card-body">
-                        <div class="card-title">Titre de la recette</div>
+                        <div class="category">{{data.recipe.category}}</div>
+                        <div class="card-title"><b>{{data.recipe.title}}</b></div>
+                        <div class="card-text">{{data.recipe.note}}</div>
                         <div class="card-text">
-                             <i class="fa-solid fa-alarm-clock"></i>
+                            <p>{{data.recipe.time}} min</p>
+                            <p>{{data.recipe.level}}</p>
+                            <p>{{data.recipe.budget}}</p>
                         </div>
-                        <a href="" class="btn btn-warning">Voir la recette</a>
-                    </div>
-                </div>
-                <div class="col-md card mx-3">
-                    <div class="like"><i class="fa-regular fa-heart"></i></div>
-                    <img src="https://resize.prod.docfr.doc-media.fr/s/1200/ext/eac4ff34/content/2022/7/5/the-sante-b031d81615e9e277.jpeg" class="card-img mt-3" alt="">
-                    <div class="card-body">
-                        <div class="card-title">Titre de la recette</div>
-                        <div class="card-text">
-                             <i class="fa-solid fa-alarm-clock"></i>
-                        </div>
-                        <a href="" class="btn btn-warning">Voir la recette</a>
-                    </div>
-                </div>
-                <div class="col-md card mx-3">
-                    <div class="like"><i class="fa-regular fa-heart"></i></div>
-                    <img src="https://resize.prod.docfr.doc-media.fr/s/1200/ext/eac4ff34/content/2022/7/5/the-sante-b031d81615e9e277.jpeg" class="card-img mt-3" alt="">
-                    <div class="card-body">
-                        <div class="card-title">Titre de la recette</div>
-                        <div class="card-text">
-                             <i class="fa-solid fa-alarm-clock"></i>
-                        </div>
-                        <a href="" class="btn btn-warning">Voir la recette</a>
+                        <a href="{{path('show_recipe', {"slug": data.recipe.slug})}}" class="btn btn-warning"><i class="fa-sharp fa-solid fa-eye"></i> Voir la recette</a>
                     </div>
                 </div>
                
+            {% endfor %}
+            
+               
+              
             </div>
+            <div class="row ">
+                <a class="col-md-4 ml-auto my-4" href="{{path('recettes_index')}}"><button class="btn btn-warning">Voir plus de recettes <i class="fa-solid fa-arrow-right"></i></button></a>
+            </div>
+             
         </div>
 
         <div class="card-orange my-3 mt-4">
