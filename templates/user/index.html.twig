@@ -27,7 +27,7 @@
     <div class="row d-flex justify-content-evenly">
     {% if user.recettes | length > 0 %}
         {% for recipe in user.recettes %}
-             <div class="col-md card mx-3">
+             <div class="col-md-4 card mt-3">
                 
                 <img src="../uploads/{{recipe.image}}" class="card-img-top mt-3 img-fluid" alt="">
                 <div class="card-body">
@@ -39,10 +39,12 @@
                         <p>{{recipe.level}}</p>
                         <p>{{recipe.budget}}</p>
                     </div>
-                    <div class="raw d-flex justify-content-between">
-                        <a href="{{path('show_recipe', {"slug": recipe.slug})}}" class="btn btn-warning mx-2"><i class="fa-sharp fa-solid fa-eye"></i> Voir</a>
-                        <a href="{{path('recettes_index')}}"><button class="btn btn-success mx-2"><i class="fa-solid fa-pen-to-square"></i>Editer</button></a>
-                        <a href="{{path('recettes_index')}}"><button class="btn btn-danger mx-2"><i class="fa-solid fa-trash"></i>Supprimer</button></a>
+
+                    
+                    <div class="raw">
+                        <a href="{{path('show_recipe', {"slug": recipe.slug})}}" class="btn btn-warning mx-2 mt-3"><i class="fa-sharp fa-solid fa-eye"></i> Voir</a>
+                        <a href="{{path('recettes_index')}}"><button class="btn btn-success mx-2 mt-3"><i class="fa-solid fa-pen-to-square"></i>Editer</button></a>
+                        <a href="{{path('recettes_index')}}"><button class="btn btn-danger mx-2 mt-3"><i class="fa-solid fa-trash"></i>Supprimer</button></a>
                     </div>
                    
                 </div>

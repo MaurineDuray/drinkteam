@@ -111,6 +111,15 @@ a:hover{
 .drink{
     background-color: white !important;
     padding-top: 20px !important;
+    color: #FF9800 !important;
+    text-align: center;
+    transition: all 1.5s;
+    display: flex;
+    align-items: center;
+}
+.drink:hover{
+    background-color: #FF9800 !important;
+    color: white !important;
 }
 
 .drink a{

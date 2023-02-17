@@ -1,0 +1,43 @@
+<div class="col-md-3 card mt-3">
+    <div class="like"><i class="fa-regular fa-heart"></i></div>
+    <img src="../uploads/{{recipe.image}}" class="card-img mt-3" alt="">
+    <div class="card-body">
+        <div class="category">{{recipe.category}}</div>
+        <div class="card-title">
+            <b>{{recipe.title}}</b> 
+        </div>
+        <div class="note">
+            <span class="mdi mdi-star-circle "></span>
+            <span class="mdi mdi-star-circle "></span>
+            <span class="mdi mdi-star-circle opacity"></span>
+            <span class="mdi mdi-star-circle opacity"></span>
+            <span class="mdi mdi-star-circle opacity"></span>
+        </div>
+        <div class="card-text">{{recipe.note}}</div>
+        <div class="card-text">
+            <p><span class="mdi mdi-clock-check-outline"></span> {{recipe.time}} min</p>
+        {# gestion level #}
+            {% if recipe.level == "Facile" %}
+                <p><span class="mdi mdi-star-outline"></span></p>
+            {% endif %}
+            {% if recipe.level == "Moyen" %}
+                <p><i class="fa-solid fa-star-half-stroke"></i></p>
+            {% endif %}
+            {% if recipe.level == "Difficile" %}
+                <p><span class="mdi mdi-star"></span></p>
+            {% endif %}
+        {# gestion budget #}
+            {% if recipe.budget == "Faible" %}
+                <p><span class="mdi mdi-currency-eur"></span></p>
+            {% endif %}
+            {% if recipe.budget == "Moyen" %}
+                <p><span class="mdi mdi-currency-eur"></span> <span class="mdi mdi-currency-eur"></span></p>
+            {% endif %}
+            {% if recipe.budget == "Coûteux" %}
+                <p><span class="mdi mdi-currency-eur"></span> <span class="mdi mdi-currency-eur"></span><span class="mdi mdi-currency-eur"></span></p>
+            {% endif %}
+            
+        </div>
+        <a href="{{path('show_recipe', {"slug": recipe.slug})}}" class="btn btn-warning"><i class="fa-sharp fa-solid fa-eye"></i> Voir la recette</a>
+    </div>
+</div>

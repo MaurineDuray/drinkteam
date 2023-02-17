@@ -14,26 +14,22 @@
         <div class="card categories p-4">
             <p>Filtrer les recettes :</p>
             <div class="row justify-content-md-around">
-                <div class="drink btn col-md-2">
-                    <span class="drinkIcon mdi mdi-coffee"></span>
-                    <p><a href="" class="link-warning">Les cafés</a></p>
-                </div>
-                <div class="drink btn col-md-2">
-                    <span class="drinkIcon mdi mdi-tea"></span>
-                    <p><a href="" class="link-warning">Les thés</a></p>
-                </div>
-                <div class="drink btn col-md-2">
-                    <i class="drinkIcon fa-solid fa-whiskey-glass"></i>
-                    <p><a href="" class="link-warning">Les limonades</a></p>
-                </div>
-                <div class="drink btn col-md-2">
-                    <i class="drinkIcon fa-solid fa-martini-glass-citrus"></i>
-                    <p><a href="" class="link-warning">Les moktails</a></p>
-                </div>
-                <div class="drink btn col-md-2">
-                    <i class="drinkIcon fa-solid fa-martini-glass"></i>
-                    <p><a href="" class="link-warning">Les coktails</a></p>
-                </div> 
+                <a href="" class="drink btn btn-warning col-md-2 mt-2">
+                    <span class="drinkIcon mdi mdi-coffee"></span><br>Les cafés
+                </a>
+                <a href="" class="drink btn btn-warning col-md-2 mt-2">
+                    <span class="drinkIcon mdi mdi-tea"></span><br>Les thés
+                </a>
+                <a href="" class="drink btn btn-warning col-md-2 mt-2">
+                     <i class="drinkIcon fa-solid fa-whiskey-glass"></i><br>Les limonades
+                </a>
+                <a href="" class="drink btn btn-warning col-md-2 mt-2">
+                   <i class="drinkIcon fa-solid fa-martini-glass-citrus"></i><br>Les moktails
+                </a>
+                <a href="" class="drink btn btn-warning col-md-2 mt-2">
+                    <i class="drinkIcon fa-solid fa-martini-glass"></i><br>Les coktails
+                </a>
+                
             </div>
         </div>
        
@@ -46,50 +42,7 @@
             <h3 class="orange">Nos dernières pépites </h3>
             <div class="row d-flex justify-content-md-around">
             {% for data in recipes %}
-                <div class="col-md-3 card mt-3">
-                    <div class="like"><i class="fa-regular fa-heart"></i></div>
-                    <img src="../uploads/{{data.recipe.image}}" class="card-img mt-3" alt="">
-                    <div class="card-body">
-                        <div class="category">{{data.recipe.category}}</div>
-                        <div class="card-title">
-                            <b>{{data.recipe.title}}</b> 
-                        </div>
-                        <div class="note">
-                            <span class="mdi mdi-star-circle "></span>
-                            <span class="mdi mdi-star-circle "></span>
-                            <span class="mdi mdi-star-circle opacity"></span>
-                            <span class="mdi mdi-star-circle opacity"></span>
-                            <span class="mdi mdi-star-circle opacity"></span>
-                        </div>
-                        <div class="card-text">{{data.recipe.note}}</div>
-                        <div class="card-text">
-                            <p><span class="mdi mdi-clock-check-outline"></span> {{data.recipe.time}} min</p>
-                        {# gestion level #}
-                            {% if data.recipe.level == "Facile" %}
-                                <p><span class="mdi mdi-star-outline"></span></p>
-                            {% endif %}
-                            {% if data.recipe.level == "Moyen" %}
-                                <p><i class="fa-solid fa-star-half-stroke"></i></p>
-                            {% endif %}
-                            {% if data.recipe.level == "Difficile" %}
-                                <p><span class="mdi mdi-star"></span></p>
-                            {% endif %}
-                        {# gestion budget #}
-                            {% if data.recipe.budget == "Faible" %}
-                                <p><span class="mdi mdi-currency-eur"></span></p>
-                            {% endif %}
-                            {% if data.recipe.budget == "Moyen" %}
-                                <p><span class="mdi mdi-currency-eur"></span> <span class="mdi mdi-currency-eur"></span></p>
-                            {% endif %}
-                            {% if data.recipe.budget == "Coûteux" %}
-                                <p><span class="mdi mdi-currency-eur"></span> <span class="mdi mdi-currency-eur"></span><span class="mdi mdi-currency-eur"></span></p>
-                            {% endif %}
-                            
-                        </div>
-                        <a href="{{path('show_recipe', {"slug": data.recipe.slug})}}" class="btn btn-warning"><i class="fa-sharp fa-solid fa-eye"></i> Voir la recette</a>
-                    </div>
-                </div>
-               
+               {% include "recipes/_recipecard.html.twig" with {'recipe': data.recipe} %}
             {% endfor %}
             
                
@@ -113,51 +66,9 @@
         <div class="container">
             <h3 class="orange">Les recettes préférées de la team</h3>
             <div class="row d-flex justify-content-md-around">
-               {% for data in recipes %}
-                <div class="col-md-3 card mt-3">
-                    <div class="like"><i class="fa-regular fa-heart"></i></div>
-                    <img src="../uploads/{{data.recipe.image}}" class="card-img mt-3" alt="">
-                    <div class="card-body">
-                        <div class="category">{{data.recipe.category}}</div>
-                        <div class="card-title">
-                            <b>{{data.recipe.title}}</b> 
-                        </div>
-                        <div class="note">
-                            <span class="mdi mdi-star-circle "></span>
-                            <span class="mdi mdi-star-circle "></span>
-                            <span class="mdi mdi-star-circle opacity"></span>
-                            <span class="mdi mdi-star-circle opacity"></span>
-                            <span class="mdi mdi-star-circle opacity"></span>
-                        </div>
-                        <div class="card-text">{{data.recipe.note}}</div>
-                        <div class="card-text">
-                            <p><span class="mdi mdi-clock-check-outline"></span> {{data.recipe.time}} min</p>
-                            {% if data.recipe.level == "Facile" %}
-                                <p><span class="mdi mdi-star-outline"></span></p>
-                            {% endif %}
-                            {% if data.recipe.level == "Moyen" %}
-                                <p><i class="fa-solid fa-star-half-stroke"></i></p>
-                            {% endif %}
-                            {% if data.recipe.level == "Difficile" %}
-                                <p><span class="mdi mdi-star"></span></p>
-                            {% endif %}
-
-                            {% if data.recipe.budget == "Faible" %}
-                                <p><span class="mdi mdi-currency-eur"></span></p>
-                            {% endif %}
-                            {% if data.recipe.budget == "Moyen" %}
-                                <p><span class="mdi mdi-currency-eur"></span> <span class="mdi mdi-currency-eur"></span></p>
-                            {% endif %}
-                            {% if data.recipe.budget == "Coûteux" %}
-                                <p><span class="mdi mdi-currency-eur"></span> <span class="mdi mdi-currency-eur"></span><span class="mdi mdi-currency-eur"></span></p>
-                            {% endif %}
-                            
-                        </div>
-                        <a href="{{path('show_recipe', {"slug": data.recipe.slug})}}" class="btn btn-warning"><i class="fa-sharp fa-solid fa-eye"></i> Voir la recette</a>
-                    </div>
-                </div>
-               
-            {% endfor %}
+                {% for data in recipes %}
+                    {% include "recipes/_recipecard.html.twig" with {'recipe': data.recipe} %}
+                {% endfor %}
                
             </div>
         </div>
