@@ -5,7 +5,7 @@
 {% block body %}
     <div class="slide container-fluid " id="home">
         <div id="txt-header">
-            <h1 class="my-1"><i class="fa-solid fa-martini-glass-citrus"></i> Drink <b>Tea'</b>mh</h1>
+            <h1 ><i class="fa-solid fa-martini-glass-citrus"></i> Drink <b>Tea'</b>m</h1>
             <br><p>Le rendez-vous des amateurs de boissons maisons !</p>
         </div>
         
@@ -13,27 +13,26 @@
     <div class="container my-4">
         <div class="card categories p-4">
             <p>Filtrer les recettes :</p>
-            <div class="row">
-                
-                <div class="drink btn  col-md mx-3">
-                    <i class="fa-solid fa-coffee-pot"></i>
-                    <p><a href="">Les cafés</a></p>
+            <div class="row justify-content-md-around">
+                <div class="drink btn col-md-2">
+                    <span class="drinkIcon mdi mdi-coffee"></span>
+                    <p><a href="" class="link-warning">Les cafés</a></p>
                 </div>
-                <div class="drink btn col-md mx-3">
-                    <i class="fa-regular fa-mug"></i>
-                    <p><a href="">Les thés</a></p>
+                <div class="drink btn col-md-2">
+                    <span class="drinkIcon mdi mdi-tea"></span>
+                    <p><a href="" class="link-warning">Les thés</a></p>
                 </div>
-                <div class="drink btn col-md mx-3">
-                    <i class="fa-solid fa-whiskey-glass"></i>
-                    <p><a href="">Les limonades</a></p>
+                <div class="drink btn col-md-2">
+                    <i class="drinkIcon fa-solid fa-whiskey-glass"></i>
+                    <p><a href="" class="link-warning">Les limonades</a></p>
                 </div>
-                <div class="drink btn col-md mx-3">
-                    <i class="fa-solid fa-martini-glass-citrus"></i>
-                    <p><a href="">Les moktails</a></p>
+                <div class="drink btn col-md-2">
+                    <i class="drinkIcon fa-solid fa-martini-glass-citrus"></i>
+                    <p><a href="" class="link-warning">Les moktails</a></p>
                 </div>
-                <div class="drink btn col-md mx-3">
-                    <i class="fa-solid fa-martini-glass"></i>
-                    <p><a href="">Les coktails</a></p>
+                <div class="drink btn col-md-2">
+                    <i class="drinkIcon fa-solid fa-martini-glass"></i>
+                    <p><a href="" class="link-warning">Les coktails</a></p>
                 </div> 
             </div>
         </div>
@@ -43,21 +42,48 @@
    
  
 
-        <div class="container ">
-            <h3 class="orange">Les dernières recettes en ligne </h3>
-            <div class="row">
+        <div class="container">
+            <h3 class="orange">Nos dernières pépites </h3>
+            <div class="row d-flex justify-content-md-around">
             {% for data in recipes %}
-                <div class="col-md card mx-3">
+                <div class="col-md-3 card mt-3">
                     <div class="like"><i class="fa-regular fa-heart"></i></div>
                     <img src="../uploads/{{data.recipe.image}}" class="card-img mt-3" alt="">
                     <div class="card-body">
                         <div class="category">{{data.recipe.category}}</div>
-                        <div class="card-title"><b>{{data.recipe.title}}</b></div>
+                        <div class="card-title">
+                            <b>{{data.recipe.title}}</b> 
+                        </div>
+                        <div class="note">
+                            <span class="mdi mdi-star-circle "></span>
+                            <span class="mdi mdi-star-circle "></span>
+                            <span class="mdi mdi-star-circle opacity"></span>
+                            <span class="mdi mdi-star-circle opacity"></span>
+                            <span class="mdi mdi-star-circle opacity"></span>
+                        </div>
                         <div class="card-text">{{data.recipe.note}}</div>
                         <div class="card-text">
-                            <p>{{data.recipe.time}} min</p>
-                            <p>{{data.recipe.level}}</p>
-                            <p>{{data.recipe.budget}}</p>
+                            <p><span class="mdi mdi-clock-check-outline"></span> {{data.recipe.time}} min</p>
+                            {% if data.recipe.level == "Facile" %}
+                                <p><span class="mdi mdi-star-outline"></span></p>
+                            {% endif %}
+                            {% if data.recipe.level == "Moyen" %}
+                                <p><i class="fa-solid fa-star-half-stroke"></i></p>
+                            {% endif %}
+                            {% if data.recipe.level == "Difficile" %}
+                                <p><span class="mdi mdi-star"></span></p>
+                            {% endif %}
+
+                            {% if data.recipe.budget == "Faible" %}
+                                <p><span class="mdi mdi-currency-eur"></span></p>
+                            {% endif %}
+                            {% if data.recipe.budget == "Moyen" %}
+                                <p><span class="mdi mdi-currency-eur"></span> <span class="mdi mdi-currency-eur"></span></p>
+                            {% endif %}
+                            {% if data.recipe.budget == "Coûteux" %}
+                                <p><span class="mdi mdi-currency-eur"></span> <span class="mdi mdi-currency-eur"></span><span class="mdi mdi-currency-eur"></span></p>
+                            {% endif %}
+                            
                         </div>
                         <a href="{{path('show_recipe', {"slug": data.recipe.slug})}}" class="btn btn-warning"><i class="fa-sharp fa-solid fa-eye"></i> Voir la recette</a>
                     </div>
@@ -77,39 +103,60 @@
         <div class="card-orange my-3 mt-4">
         <div class="container">
             <h4 class="orange"> Des recettes, du partage, du bonheur !</h4>
-            <p>Chez Drink Tea'mh, partageons exclusivement nos recettes de boissons, des eaux parfumées aux coktails alcoolisés en passant par les cafés et les thés, boissons chaudes ou boissons froides. Peu importe qu'elles soient alcooliées ou non, les boissons sont symboles de partage alors allez-y amusez-vous ! 
+            <p>Chez Drink Tea'm, partageons exclusivement nos recettes de boissons, des eaux parfumées aux coktails alcoolisés en passant par les cafés et les thés, boissons chaudes ou boissons froides. Peu importe qu'elles soient alcooliées ou non, les boissons sont symboles de partage alors allez-y amusez-vous ! 
             </p>
         
         </div>
         </div>
 
-        <div class="container ">
-            <h3 class="orange">Les meilleures recettes </h3>
-            <div class="row">
-                <div class="col-md card mx-3">
-                    <img src="https://resize.prod.docfr.doc-media.fr/s/1200/ext/eac4ff34/content/2022/7/5/the-sante-b031d81615e9e277.jpeg" class="card-img mt-3" alt="">
+        <div class="container">
+            <h3 class="orange">Les recettes préférées de la team</h3>
+            <div class="row d-flex justify-content-md-around">
+               {% for data in recipes %}
+                <div class="col-md-3 card mt-3">
+                    <div class="like"><i class="fa-regular fa-heart"></i></div>
+                    <img src="../uploads/{{data.recipe.image}}" class="card-img mt-3" alt="">
                     <div class="card-body">
-                        <div class="card-title">Test</div>
-                        <div class="card-text"></div>
-                        <a href="" class="btn btn-warning">Voir la recette</a>
+                        <div class="category">{{data.recipe.category}}</div>
+                        <div class="card-title">
+                            <b>{{data.recipe.title}}</b> 
+                        </div>
+                        <div class="note">
+                            <span class="mdi mdi-star-circle "></span>
+                            <span class="mdi mdi-star-circle "></span>
+                            <span class="mdi mdi-star-circle opacity"></span>
+                            <span class="mdi mdi-star-circle opacity"></span>
+                            <span class="mdi mdi-star-circle opacity"></span>
+                        </div>
+                        <div class="card-text">{{data.recipe.note}}</div>
+                        <div class="card-text">
+                            <p><span class="mdi mdi-clock-check-outline"></span> {{data.recipe.time}} min</p>
+                            {% if data.recipe.level == "Facile" %}
+                                <p><span class="mdi mdi-star-outline"></span></p>
+                            {% endif %}
+                            {% if data.recipe.level == "Moyen" %}
+                                <p><i class="fa-solid fa-star-half-stroke"></i></p>
+                            {% endif %}
+                            {% if data.recipe.level == "Difficile" %}
+                                <p><span class="mdi mdi-star"></span></p>
+                            {% endif %}
+
+                            {% if data.recipe.budget == "Faible" %}
+                                <p><span class="mdi mdi-currency-eur"></span></p>
+                            {% endif %}
+                            {% if data.recipe.budget == "Moyen" %}
+                                <p><span class="mdi mdi-currency-eur"></span> <span class="mdi mdi-currency-eur"></span></p>
+                            {% endif %}
+                            {% if data.recipe.budget == "Coûteux" %}
+                                <p><span class="mdi mdi-currency-eur"></span> <span class="mdi mdi-currency-eur"></span><span class="mdi mdi-currency-eur"></span></p>
+                            {% endif %}
+                            
+                        </div>
+                        <a href="{{path('show_recipe', {"slug": data.recipe.slug})}}" class="btn btn-warning"><i class="fa-sharp fa-solid fa-eye"></i> Voir la recette</a>
                     </div>
                 </div>
-                <div class="col-md card mx-3">
-                    <img src="https://resize.prod.docfr.doc-media.fr/s/1200/ext/eac4ff34/content/2022/7/5/the-sante-b031d81615e9e277.jpeg" class="card-img mt-3" alt="">
-                    <div class="card-body">
-                        <div class="card-title">Test</div>
-                        <div class="card-text"></div>
-                        <a href="" class="btn btn-warning">Voir la recette</a>
-                    </div>
-                </div>
-                <div class="col-md card mx-3">
-                    <img src="https://resize.prod.docfr.doc-media.fr/s/1200/ext/eac4ff34/content/2022/7/5/the-sante-b031d81615e9e277.jpeg" class="card-img mt-3" alt="">
-                    <div class="card-body">
-                        <div class="card-title">Test</div>
-                        <div class="card-text"></div>
-                        <a href="" class="btn btn-warning">Voir la recette</a>
-                    </div>
-                </div>
+               
+            {% endfor %}
                
             </div>
         </div>
@@ -117,8 +164,8 @@
 
         <div class="card-orange my-5">
             <div class="container">
-                <h4 class="orange"> Le Drink Tea'mh mag</h4>
-                    <p>Chez Drink Tea'mh, nous sommes convaincus que cuisiner et partager rend heureux et que le fait maison peut changer les vies.
+                <h4 class="orange"> Le Drink Tea'm mag</h4>
+                    <p>Chez Drink Tea'm, nous sommes convaincus que cuisiner et partager rend heureux et que le fait maison peut changer les vies.
                     C&nbsp;'est pour cela que nous sommes là pour vous accompagner au quotidien et pour vous permettre d´explorer le bonheur de cuisiner quelque soit votre niveau, votre temps, votre budget ou votre motivation.
                     </p>
             </div>

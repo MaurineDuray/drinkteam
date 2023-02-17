@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Comments;
 use App\Entity\Recipes;
+use App\Form\CommentType;
 use App\Form\RecipeType;
 use App\Repository\RecipesRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -96,11 +98,33 @@ class RecipesController extends AbstractController
      * Permet d'afficher une recette en particulier
      */
     #[Route('/recettes/{slug}', name:'show_recipe')]
-    public function showRecipe(string $slug, Recipes $recipe):Response
+    public function showRecipe(string $slug, Recipes $recipe, Request $request,EntityManagerInterface $manager):Response
     {
-        
+        $comment = new Comments();
+
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setIdUser($this->getUser());
+            $comment->setIdRecipe($recipe->getSlug());
+            
+            $manager->persist($comment);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "Le commentaire a bien été enregistré!"
+            );
+
+            return $this->redirectToRoute('show_recipe', [
+                'slug' => $recipe->getSlug(),
+                'myform' => $form->createView()
+            ]);
+        }
         return $this->render('recipes/showRecipe.html.twig',[
-            'recipe'=> $recipe
+            'recipe'=> $recipe,
+            'myform' => $form->createView()
         ]);
     }
 

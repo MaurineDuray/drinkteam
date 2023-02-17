@@ -50,8 +50,11 @@ nav span{
 .d-flex{
     margin-top: 20px;
 }
+a:hover{
+    color: #FF9800;
+}
 .slide{
-    width: 100%;
+    
     padding-top: 150px;
 }
 .orange{
@@ -84,11 +87,13 @@ nav span{
 
 #home h1{
     font-size: 4rem;
-    width: 100vw;
+    width: 100%;
     text-align: center;
+    padding: 0;
+    margin: 0;
 }
 #home p{
-    width: 100vw;
+    width: 100%;
     text-align: center;
     font-size: 18pt;
     margin-top: -40px;
@@ -105,11 +110,18 @@ nav span{
 }
 .drink{
     background-color: white !important;
+    padding-top: 20px !important;
 }
 
 .drink a{
     color:#FF9800;
     text-decoration: none;
+}
+.drink p{
+    margin-top: 10px;
+}
+.drinkIcon{
+    font-size: 20pt;
 }
 
 .like{
@@ -135,6 +147,9 @@ nav span{
     padding: 1px 10px 1px 10px;
     border-radius: 20px;
     
+}
+.opacity{
+    opacity: 0.3;
 }
 
 /* Recettes ***************** */

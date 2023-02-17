@@ -47,10 +47,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
   
     private ?string $passwordConfirm = null;
 
+    #[ORM\OneToMany(mappedBy: 'idUser', targetEntity: Comments::class, orphanRemoval: true)]
+    private Collection $comments;
+
     public function __construct()
     {
         
         $this->recettes = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
       /**
@@ -214,6 +218,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPasswordConfirm(string $passwordConfirm): self
     {
         $this->passwordConfirm = $passwordConfirm;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comments>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comments $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comments $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getIdUser() === $this) {
+                $comment->setIdUser(null);
+            }
+        }
 
         return $this;
     }

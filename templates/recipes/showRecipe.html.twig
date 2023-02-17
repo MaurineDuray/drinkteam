@@ -2,20 +2,25 @@
 
 {% block title %}Titre de la recette{% endblock %}
 
+{% form_theme myform 'bootstrap_5_layout.html.twig' %}
+
 {% block body %}
 <div class="slide container">
 <a href="{{path('recettes_index')}}"><button class="btn btn-warning m-3"><i class="fa-solid fa-arrow-left"></i> Retour aux recettes</button></a>
-    {% if recipe.idUser.id == app.user.id or app.user.roles[0] == "ROLE_ADMIN" %}
-        <a href="{{path('recettes_index')}}"><button class="btn btn-success m-3"><i class="fa-solid fa-pen-to-square"></i> Editer la recette</button></a>
-        <a href="{{path('recettes_index')}}"><button class="btn btn-danger m-3"><i class="fa-solid fa-trash"></i> Supprimer la recette</button></a>
+    {% if app.user %}
+        {% if recipe.idUser.id == app.user.id or app.user.roles[0] == "ROLE_ADMIN" %}
+            <a href="{{path('recettes_index')}}"><button class="btn btn-success m-3"><i class="fa-solid fa-pen-to-square"></i> Editer la recette</button></a>
+            <a href="{{path('recettes_index')}}"><button class="btn btn-danger m-3"><i class="fa-solid fa-trash"></i> Supprimer la recette</button></a>
+        {% endif %}
     {% endif %}
+    
     <div class="row">
         <div class="col-md picture">
             <img src="../uploads/{{recipe.image}}" alt="" class="card-img img-fluid">
         </div>
         <div class="col-md">
             <h1>{{recipe.title}}</h1>
-            <p>par <i>{{recipe.idUser.pseudo}}</i></p>
+            <p>par <i><a href="" class="link-warning">{{recipe.idUser.pseudo}}</a></i></p>
             <div class="card-orange infos">
                 <p>Durée : {{recipe.time}} min</p>
                 <p>Budget : {{recipe.budget}}</p>
@@ -36,5 +41,42 @@
         <p>{{recipe.steps|nl2br}}</p>
     </div>
    
+   <hr>
+    
+   <div class="container">
+        <h3 class="orange">Commentaires des utilisateurs</h3>
+        {% if recipe.comments | length>0 %}
+            {% for comment in recipe.comments %}
+                <div class="card p-3">
+                    <div class="row">
+                        <div class="col-md-2">
+                            {% if comment.idUser.avatar %}
+                                <img src="../uploads/{{comment.idUser.avatar}}" alt="Avatar de {{comment.idUser.pseudo}}">
+                            {% else %}
+                                
+                            {% endif %}
+                           
+                            <h6><b>{{comment.idUser.pseudo}}</b></h6>
+                            <p>Note : {{comment.note}}</p>
+                        </div>
+                        <div class="col-10">
+                            <p> Commentaire: <br>{{comment.content}}</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            {% endfor %}
+        {% else %}
+            <div>
+                <p>Il n'y a pas encore de commentaires pour cette recette !</p>
+                <p><b>Soyez le premier à donner votre avis ...</b></p>
+                {{form_start(myform)}}
+
+                {{form_end(myform)}}
+
+                <button type="submit" class="btn btn-warning">Ajouter un commentaire</button>
+            </div>
+        {% endif %}
+   </div>
 </div>
 {% endblock %}
