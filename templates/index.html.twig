@@ -64,6 +64,7 @@
                         <div class="card-text">{{data.recipe.note}}</div>
                         <div class="card-text">
                             <p><span class="mdi mdi-clock-check-outline"></span> {{data.recipe.time}} min</p>
+                        {# gestion level #}
                             {% if data.recipe.level == "Facile" %}
                                 <p><span class="mdi mdi-star-outline"></span></p>
                             {% endif %}
@@ -73,7 +74,7 @@
                             {% if data.recipe.level == "Difficile" %}
                                 <p><span class="mdi mdi-star"></span></p>
                             {% endif %}
-
+                        {# gestion budget #}
                             {% if data.recipe.budget == "Faible" %}
                                 <p><span class="mdi mdi-currency-eur"></span></p>
                             {% endif %}

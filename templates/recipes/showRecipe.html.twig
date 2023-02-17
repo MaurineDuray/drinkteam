@@ -20,11 +20,45 @@
         </div>
         <div class="col-md">
             <h1>{{recipe.title}}</h1>
+            <div class="note">
+                            <span class="mdi mdi-star-circle "></span>
+                            <span class="mdi mdi-star-circle "></span>
+                            <span class="mdi mdi-star-circle opacity"></span>
+                            <span class="mdi mdi-star-circle opacity"></span>
+                            <span class="mdi mdi-star-circle opacity"></span>
+                        </div>
             <p>par <i><a href="" class="link-warning">{{recipe.idUser.pseudo}}</a></i></p>
             <div class="card-orange infos">
-                <p>Durée : {{recipe.time}} min</p>
-                <p>Budget : {{recipe.budget}}</p>
-                <p>Niveau de la recette: {{recipe.level}}</p>
+                <div class="col-12">
+                    <p><span class="mdi mdi-clock-check-outline"></span> Durée : {{recipe.time}} min</p>
+                        {# gestion level #}
+                </div>
+                <div class="col-12 d-flex">
+                    <p><span class="mdi mdi-star"></span>Niveau de la recette: </p>
+                        {% if recipe.level == "Facile" %}
+                            <p><span class="mdi mdi-star-outline"></span></p>
+                        {% endif %}
+                        {% if recipe.level == "Moyen" %}
+                            <p><i class="fa-solid fa-star-half-stroke"></i></p>
+                        {% endif %}
+                        {% if recipe.level == "Difficile" %}
+                            <p><span class="mdi mdi-star"></span></p>
+                        {% endif %}
+                </div>
+                <div class="col-12 d-flex">
+                    <p><span class="mdi mdi-currency-eur"> Budget : </p>
+                        {% if recipe.budget == "Faible" %}
+                            <p><span class="mdi mdi-currency-eur"></span></p>
+                        {% endif %}
+                        {% if recipe.budget == "Moyen" %}
+                            <p><span class="mdi mdi-currency-eur"></span> <span class="mdi mdi-currency-eur"></span></p>
+                        {% endif %}
+                        {% if recipe.budget == "Coûteux" %}
+                            <p><span class="mdi mdi-currency-eur"></span> <span class="mdi mdi-currency-eur"></span><span class="mdi mdi-currency-eur"></span></p>
+                        {% endif %}
+                </div>
+                   
+                    
             </div>
             <div class="card p-3 my-4">
                 <h4>Ingrédients:</h4>
