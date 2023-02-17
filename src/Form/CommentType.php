@@ -15,8 +15,8 @@ class CommentType extends ApplicationType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('note', IntegerType::class, $this->getConfiguration("Note", "Donnez une note à la recette"))
-            ->add('content', TextareaType::class, $this->getConfiguration("Commentaire", "Votre commentaire"))
+            ->add('note', IntegerType::class, $this->getConfiguration("Note", "Donne une note à la recette entre 0 et 5"))
+            ->add('content', TextareaType::class, $this->getConfiguration("Commentaire", "Ton commentaire, tes recommandations..."))
             // ->add('date', )
             // ->add('idRecipe')
             // ->add('idUser')

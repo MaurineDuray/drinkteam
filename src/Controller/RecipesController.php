@@ -106,9 +106,11 @@ class RecipesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setIdUser($this->getUser());
-            $comment->setIdRecipe($recipe->getSlug());
-            
+
+            $comment->setIdUser($this->getUser())
+                    ->setDate(new \DateTime())
+                    ->setIdRecipe($recipe);
+
             $manager->persist($comment);
             $manager->flush();
 
@@ -118,14 +120,19 @@ class RecipesController extends AbstractController
             );
 
             return $this->redirectToRoute('show_recipe', [
-                'slug' => $recipe->getSlug(),
-                'myform' => $form->createView()
+                'slug' => $recipe->getSlug()
             ]);
+
         }
         return $this->render('recipes/showRecipe.html.twig',[
-            'recipe'=> $recipe,
-            'myform' => $form->createView()
+        'recipe'=> $recipe,
+        'myform' => $form->createView()
         ]);
+    
+        
     }
+
+    
+    
 
 }

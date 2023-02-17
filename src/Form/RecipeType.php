@@ -17,12 +17,12 @@ class RecipeType extends ApplicationType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class, $this->getConfiguration("Titre", "Intitulé de votre recette"))
-            ->add('time', IntegerType::class, $this->getConfiguration("Durée (minutes)", "Durée depréparation de votre recette"))
+            ->add('title', TextType::class, $this->getConfiguration("Titre", "Intitulé de la recette"))
+            ->add('time', IntegerType::class, $this->getConfiguration("Durée (minutes)", "Durée depréparation de la recette"))
             ->add('level', ChoiceType::class, [
                 'label'=>"Niveau de difficulté de la recette",
                 "required"=>true,
-                'placeholder'=>"Choisissez le niveau de difficulté",
+                'placeholder'=>"Choisis le niveau de difficulté",
                 'choices'=>[
                     "Facile"=>"Facile",
                     "Moyen"=>"Moyen",
@@ -32,14 +32,14 @@ class RecipeType extends ApplicationType
             ->add('budget', ChoiceType::class, [
                 'label'=>"Budget de la recette",
                 "required"=>true,
-                'placeholder'=>"Choisissez le coût de la recette",
+                'placeholder'=>"Choisis le coût de la recette",
                 'choices'=>[
                     "Faible"=>"Faible",
                     "Moyen"=>"Moyen",
                     "Coûteux"=>"Coûteux"
                 ]
             ])            
-            ->add('portions',IntegerType::class, $this->getConfiguration("Portions", "Nombre de personnes"))
+            ->add('portions',IntegerType::class, $this->getConfiguration("Portions", "Nombre de portions de la recette"))
             ->add('image', FileType::class,[
                 "label"=> "Image de la recette(jpg, jpeg, png)",
                 "required"=>false

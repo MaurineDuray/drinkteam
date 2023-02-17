@@ -47,20 +47,32 @@
         <h3 class="orange">Commentaires des utilisateurs</h3>
         {% if recipe.comments | length>0 %}
             {% for comment in recipe.comments %}
-                <div class="card p-3">
+                <div class="card p-3 my-2">
                     <div class="row">
                         <div class="col-md-2">
                             {% if comment.idUser.avatar %}
-                                <img src="../uploads/{{comment.idUser.avatar}}" alt="Avatar de {{comment.idUser.pseudo}}">
+                                <img src="../uploads/{{comment.idUser.avatar}}" class="avatar" alt="Avatar de {{comment.idUser.pseudo}}">
                             {% else %}
-                                
+                                <img src="../images/userPicture.png" class="avatar" alt="Avatar de {{comment.idUser.pseudo}}">
                             {% endif %}
                            
                             <h6><b>{{comment.idUser.pseudo}}</b></h6>
                             <p>Note : {{comment.note}}</p>
+
+                            
                         </div>
                         <div class="col-10">
                             <p> Commentaire: <br>{{comment.content}}</p>
+                            {% if app.user %}
+                                {% if app.user.id == comment.idUser.id  %}
+                                    <button class="btn btn-success">Modifier</button>
+                                {% endif %}
+                                {% if app.user.id == comment.idUser.id or app.user.roles[0] == "ROLE_ADMIN" %}
+                                    <button class="btn btn-danger">Supprimer</button>
+                                {% endif %}
+                            {% endif %}
+                            
+                            
                         </div>
                     </div>
                     
@@ -69,14 +81,27 @@
         {% else %}
             <div>
                 <p>Il n'y a pas encore de commentaires pour cette recette !</p>
-                <p><b>Soyez le premier à donner votre avis ...</b></p>
-                {{form_start(myform)}}
-
-                {{form_end(myform)}}
-
-                <button type="submit" class="btn btn-warning">Ajouter un commentaire</button>
+                <p><b>Sois le premier à donner votre avis  !</b></p>
+                 
             </div>
         {% endif %}
-   </div>
-</div>
+        {% if app.user %}
+        <div class="my-4">
+            <p><b>Donne ton avis sur la recette...</b></p>
+            {{form_start(myform)}}
+                {{form_widget(myform)}}
+                </div>
+                <button type="submit" class="btn btn-warning mt-3"><i class="fa-solid fa-check"></i> Ajouter mon commentaire</button>
+            {{form_end(myform)}}
+        </div>
+        {% else %}
+            <p>Tu veux aussi donner ton avis ?</p>
+            <p>Inscris-toi ou connecte toi ! 
+                <button class="btn btn-warning mx-3">Je veux m'inscrire</button>
+                <a href="{{path('account_login')}}"><button class="btn btn-success mx-2">Je me connecte</button></a>
+            </p>
+        {% endif %}
+        
+        </div>
+    </div>
 {% endblock %}
