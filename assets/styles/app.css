@@ -54,8 +54,11 @@ a:hover{
     color: #FF9800;
 }
 .slide{
-    
     padding-top: 150px;
+}
+.slidefill{
+    padding-top: 150px;
+    min-height: 80vh;
 }
 .orange{
     color: #FF9800;
@@ -133,6 +136,7 @@ a:hover{
     font-size: 20pt;
 }
 
+
 .like{
     width: 40px;
     height: 40px;
@@ -147,6 +151,7 @@ a:hover{
     border-radius: 50%;
     cursor: pointer;
 }
+
 .category{
     position: absolute;
     margin-top: -55px;

@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-
+use Symfony\Flex\Recipe;
 
 class RecipesController extends AbstractController
 {
@@ -132,7 +132,24 @@ class RecipesController extends AbstractController
         
     }
 
-    
+    /**
+     * Permet de supprimer une recette
+     */
+    #[Route('/recettes/{slug}/delete', name:"delete_recipe")]
+    public function deleteRecipe(Recipes $recipe, EntityManagerInterface $manager):Response
+    {
+        $this->addFlash(
+            'success',
+            "L'annonce <strong>{$recipe->getTitle()}</strong> a été supprimée"
+        );
+
+        unlink($this->getParameter('uploads_directory').'/'.$recipe->getImage());
+
+        $manager->remove($recipe);
+        $manager->flush();
+
+        return $this->redirectToRoute('recettes_index');
+    }
     
 
 }

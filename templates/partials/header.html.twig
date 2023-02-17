@@ -23,7 +23,7 @@
               <li><a class="dropdown-item" href="{{path('new_recipe')}}">Publier une recette</a></li>
               <li><a class="dropdown-item" href="{{path('profile')}}">Mon profil</a></li>
               {% if app.user.roles[0] == "ROLE_ADMIN" %}
-                <li><a class="dropdown-item" href="#">ADMINISTRATION</a></li>
+                <li><a class="dropdown-item" href="{{path('dashboard')}}">ADMINISTRATION</a></li>
               {% endif %}
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="{{path('account_logout')}}">Déconnexion</a></li>

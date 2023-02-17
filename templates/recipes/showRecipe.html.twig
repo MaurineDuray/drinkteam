@@ -10,7 +10,7 @@
     {% if app.user %}
         {% if recipe.idUser.id == app.user.id or app.user.roles[0] == "ROLE_ADMIN" %}
             <a href="{{path('recettes_index')}}"><button class="btn btn-success m-3"><i class="fa-solid fa-pen-to-square"></i> Editer la recette</button></a>
-            <a href="{{path('recettes_index')}}"><button class="btn btn-danger m-3"><i class="fa-solid fa-trash"></i> Supprimer la recette</button></a>
+            <a href="{{path('delete_recipe',{"slug": recipe.slug})}}"><button class="btn btn-danger m-3"><i class="fa-solid fa-trash"></i> Supprimer la recette</button></a>
         {% endif %}
     {% endif %}
     
