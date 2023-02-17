@@ -64,7 +64,7 @@
         </div>
 
         <div class="container">
-            <h3 class="orange">Les recettes préférées de la team</h3>
+            <h3 class="orange">Le top 3 du moment</h3>
             <div class="row d-flex justify-content-md-around">
                 {% for data in recipes %}
                     {% include "recipes/_recipecard.html.twig" with {'recipe': data.recipe} %}

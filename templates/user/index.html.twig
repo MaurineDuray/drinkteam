@@ -23,7 +23,12 @@
     </div>
 </div>
 <div class="container my-5">
-    <h3 class="orange">Les recettes de {{user.pseudo}}</h3>
+    {% if app.user.id == user.id %}
+    <h3 class="orange">Vos recettes </h3>
+    {% else %}
+    <h3 class="orange">Les recettes de {{user.pseudo}} </h3>
+    {% endif %}
+    
     <div class="row d-flex justify-content-evenly">
     {% if user.recettes | length > 0 %}
         {% for recipe in user.recettes %}
@@ -32,19 +37,46 @@
                 <img src="../uploads/{{recipe.image}}" class="card-img-top mt-3 img-fluid" alt="">
                 <div class="card-body">
                     <div class="category">{{recipe.category}}</div>
-                    <div class="card-title">{{recipe.title}}</div>
-                    <div class="card-text">{{recipe.note}}</div>
-                    <div class="card-text">
-                        <p>{{recipe.time}} min</p>
-                        <p>{{recipe.level}}</p>
-                        <p>{{recipe.budget}}</p>
-                    </div>
-
+                        <div class="card-title">
+                            <b>{{recipe.title}}</b> 
+                        </div>
+                        <div class="note">
+                            <span class="mdi mdi-star-circle "></span>
+                            <span class="mdi mdi-star-circle "></span>
+                            <span class="mdi mdi-star-circle opacity"></span>
+                            <span class="mdi mdi-star-circle opacity"></span>
+                            <span class="mdi mdi-star-circle opacity"></span>
+                        </div>
+                        <div class="card-text">{{recipe.note}}</div>
+                        <div class="card-text">
+                            <p><span class="mdi mdi-clock-check-outline"></span> {{recipe.time}} min</p>
+                        {# gestion level #}
+                            {% if recipe.level == "Facile" %}
+                                <p><span class="mdi mdi-star-outline"></span></p>
+                            {% endif %}
+                            {% if recipe.level == "Moyen" %}
+                                <p><i class="fa-solid fa-star-half-stroke"></i></p>
+                            {% endif %}
+                            {% if recipe.level == "Difficile" %}
+                                <p><span class="mdi mdi-star"></span></p>
+                            {% endif %}
+                        {# gestion budget #}
+                            {% if recipe.budget == "Faible" %}
+                                <p><span class="mdi mdi-currency-eur"></span></p>
+                            {% endif %}
+                            {% if recipe.budget == "Moyen" %}
+                                <p><span class="mdi mdi-currency-eur"></span> <span class="mdi mdi-currency-eur"></span></p>
+                            {% endif %}
+                            {% if recipe.budget == "Coûteux" %}
+                                <p><span class="mdi mdi-currency-eur"></span> <span class="mdi mdi-currency-eur"></span><span class="mdi mdi-currency-eur"></span></p>
+                            {% endif %}
+                            
+                        </div>
                     
                     <div class="raw">
-                        <a href="{{path('show_recipe', {"slug": recipe.slug})}}" class="btn btn-warning mx-2 mt-3"><i class="fa-sharp fa-solid fa-eye"></i> Voir</a>
-                        <a href="{{path('recettes_index')}}"><button class="btn btn-success mx-2 mt-3"><i class="fa-solid fa-pen-to-square"></i>Editer</button></a>
-                        <a href="{{path('recettes_index')}}"><button class="btn btn-danger mx-2 mt-3"><i class="fa-solid fa-trash"></i>Supprimer</button></a>
+                        <a href="{{path('show_recipe', {"slug": recipe.slug})}}" class="col-md-12 btn btn-warning mx-2 mt-3"><i class="fa-sharp fa-solid fa-eye"></i> Voir</a>
+                        <a href="{{path('recettes_index')}}"><button class="col-md-12 btn btn-success mx-2 mt-3"><i class="fa-solid fa-pen-to-square"></i>Editer</button></a>
+                        <a href="{{path('delete_recipe',{"slug":recipe.slug})}}"><button class="col-md-12 btn btn-danger mx-2 mt-3"><i class="fa-solid fa-trash"></i>Supprimer</button></a>
                     </div>
                    
                 </div>
