@@ -102,7 +102,7 @@
                                     <button class="btn btn-success">Modifier</button>
                                 {% endif %}
                                 {% if app.user.id == comment.idUser.id or app.user.roles[0] == "ROLE_ADMIN" %}
-                                    <button class="btn btn-danger">Supprimer</button>
+                                    <a href="{{path('delete_comment',{"id":comment.id})}}" class="btn btn-danger">Supprimer</a>
                                 {% endif %}
                             {% endif %}
                             
