@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Gestion des utilisateurs{% endblock %}
+
+{% block body %}
+    <div class="container-fluid slide container">
+        <h1>Gestion des utilisateurs</h1>
+        <a class="btn btn-warning" href="{{path('dashboard')}}">Retour au dashboard</a>
+        <table class='table' style="width: 100%">
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Pseudo</td>
+                    <td>Rôles</td>
+                    <td>Email</td>
+                    <td>Actions</td>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                 <tr>
+                    <td>{{user.id}}</td>
+                    <td>{{user.pseudo}}</td>
+                    <td>{{user.roles[0]}} </td>
+                    <td>{{user.email}}</td>
+                    <td>
+                        <a class="btn btn-success">Modifier</a>
+                        <a class="btn btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+               
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
