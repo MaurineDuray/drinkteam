@@ -58,9 +58,13 @@ class Recipes
     #[ORM\OneToMany(mappedBy: 'idRecipe', targetEntity: Comments::class, orphanRemoval: true)]
     private Collection $comments;
 
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Like::class, orphanRemoval: true)]
+    private Collection $likes;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
 
@@ -270,6 +274,36 @@ class Recipes
             // set the owning side to null (unless already changed)
             if ($comment->getIdRecipe() === $this) {
                 $comment->setIdRecipe(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Like>
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Like $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes->add($like);
+            $like->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Like $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getRecipe() === $this) {
+                $like->setRecipe(null);
             }
         }
 
