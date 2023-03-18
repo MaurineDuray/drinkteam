@@ -21,16 +21,53 @@
         <div class="col-md">
             <h1>{{recipe.title}}</h1>
             <div class="note">
-                            <span class="mdi mdi-star-circle "></span>
-                            <span class="mdi mdi-star-circle "></span>
-                            <span class="mdi mdi-star-circle opacity"></span>
-                            <span class="mdi mdi-star-circle opacity"></span>
-                            <span class="mdi mdi-star-circle opacity"></span>
-                        </div>
+                {% if recipe.avgRatings == 0 %}
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                {% endif %}
+                {% if recipe.avgRatings == 1 %}
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                {% endif %}
+                {% if recipe.avgRatings == 2 %}
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                {% endif %}
+                {% if recipe.avgRatings == 3 %}
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                {% endif %}
+                {% if recipe.avgRatings == 4 %}
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                {% endif %}
+                {% if recipe.avgRatings == 5 %}
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                {% endif %}
+            </div>
             <p>par <i><a href="" class="link-warning">{{recipe.idUser.pseudo}}</a></i></p>
             <div class="card-orange infos">
                 <div class="col-12">
-                    <p><span class="mdi mdi-clock-check-outline"></span> Durée : {{recipe.time}} min</p>
+                    <p><span class="mdi mdi-clock-check-outline"></span> Durée de préparation: {{recipe.time}} min</p>
                         {# gestion level #}
                 </div>
                 <div class="col-12 d-flex">
@@ -91,7 +128,62 @@
                             {% endif %}
                            
                             <h6><b>{{comment.idUser.pseudo}}</b></h6>
-                            <p>Note : {{comment.note}}</p>
+                            <p>Note : 
+                            {% if comment.note == 0 %}
+                                 <div class="note">
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                </div>
+                            {% endif %}
+                            {% if comment.note == 1 %}
+                                 <div class="note">
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                </div>
+                            {% endif %}
+                            {% if comment.note == 2 %}
+                                 <div class="note">
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                </div>
+                            {% endif %}
+                            {% if comment.note == 3 %}
+                                 <div class="note">
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                </div>
+                            {% endif %}
+                            {% if comment.note == 4 %}
+                                 <div class="note">
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                </div>
+                            {% endif %}
+                            {% if comment.note == 5 %}
+                                 <div class="note">
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle "></span>
+                                </div>
+                            {% endif %}
+                            </p>
 
                             
                         </div>
@@ -112,6 +204,7 @@
                     
                 </div>
             {% endfor %}
+            
         {% else %}
             <div>
                 <p>Il n'y a pas encore de commentaires pour cette recette !</p>

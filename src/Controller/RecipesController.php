@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Comments;
 use App\Entity\Recipes;
-use App\Form\CommentType;
+use App\Entity\Comments;
 use App\Form\RecipeType;
+use Symfony\Flex\Recipe;
+use App\Form\CommentType;
+use App\Service\PaginationService;
 use App\Repository\RecipesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Flex\Recipe;
 
 class RecipesController extends AbstractController
 {
@@ -24,13 +25,15 @@ class RecipesController extends AbstractController
      * @param RecipesRepository $repo
      * @return Response
      */
-    #[Route('/recettes', name: 'recettes_index')]
-    public function index(RecipesRepository $repo): Response
+    #[Route('/recettes/{page<\d+>?1}', name: 'recettes_index')]
+    public function index(PaginationService $pagination, $page): Response
     {
-        $recipes = $repo->findAll();
+        $pagination -> setEntityClass(Recipes::class)
+        ->setPage($page)
+        ->setLimit(12);
 
         return $this->render('recipes/index.html.twig', [
-            'recipes' => $recipes,
+            'pagination' => $pagination,
         ]);
     }
     
@@ -120,7 +123,8 @@ class RecipesController extends AbstractController
             );
 
             return $this->redirectToRoute('show_recipe', [
-                'slug' => $recipe->getSlug()
+                'slug' => $recipe->getSlug(),
+                
             ]);
 
         }

@@ -79,6 +79,23 @@ class Recipes
         }
     }
 
+    /**
+     * Permet de récup la note d'une recette
+     *
+     * @return integer
+     */
+    public function getAvgRatings(): int 
+    {
+       
+        $sum = array_reduce($this->comments->toArray(), function($total, $comment){
+            return $total + $comment->getNote();
+        },0);
+
+        // faire la division pour avoir la moyenne 
+        if(count($this->comments) > 0) return $moyennne = round($sum / count($this->comments));
+        return 0;
+    }
+
 
     public function getId(): ?int
     {
