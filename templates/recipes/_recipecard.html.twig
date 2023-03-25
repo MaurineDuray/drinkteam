@@ -1,10 +1,16 @@
 <div class="col-md-4 card mt-3">
     
-    <a href="{{path('like', {'slug': recipe.slug})}}">
-        <div class="like">
-            <i class="fa-regular fa-heart"></i>
-        </div>
-    </a>
+    {% if app.user %}
+        {% set utilisateur = app.user %}
+
+            <a href="{{path('like', {'slug': recipe.slug})}}">
+                <div class="like">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+            </a>
+       
+    {% endif %}
+    
     <img src="../uploads/{{recipe.image}}" class="card-img mt-3" alt="">
     <div class="card-body">
         <div class="category">{{recipe.category}}</div>

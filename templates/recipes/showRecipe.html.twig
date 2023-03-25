@@ -9,8 +9,8 @@
 <a href="{{path('recettes_index')}}"><button class="btn btn-warning m-3"><i class="fa-solid fa-arrow-left"></i> Retour aux recettes</button></a>
     {% if app.user %}
         {% if recipe.idUser.id == app.user.id or app.user.roles[0] == "ROLE_ADMIN" %}
-            <a href="{{path('recettes_index')}}"><button class="btn btn-success m-3"><i class="fa-solid fa-pen-to-square"></i> Editer la recette</button></a>
-            <a href="{{path('delete_recipe',{"slug": recipe.slug})}}"><button class="btn btn-danger m-3"><i class="fa-solid fa-trash"></i> Supprimer la recette</button></a>
+            <a class="btn btn-success m-3" href="{{path('edit_recipe',{'slug':recipe.slug})}}"><i class="fa-solid fa-pen-to-square"></i> Editer la recette</button></a>
+            <a href="{{path('delete_recipe',{"slug": recipe.slug})}}" class="btn btn-danger m-3"><i class="fa-solid fa-trash"></i> Supprimer la recette</a>
         {% endif %}
     {% endif %}
     
@@ -191,7 +191,7 @@
                             <p> Commentaire: <br>{{comment.content}}</p>
                             {% if app.user %}
                                 {% if app.user.id == comment.idUser.id  %}
-                                    <button class="btn btn-success">Modifier</button>
+                                    <button class="btn btn-success" href="{{path('edit_recipe',{'slug':comment.id})}}">Modifier</button>
                                 {% endif %}
                                 {% if app.user.id == comment.idUser.id or app.user.roles[0] == "ROLE_ADMIN" %}
                                     <a href="{{path('delete_comment',{"id":comment.id})}}" class="btn btn-danger">Supprimer</a>

@@ -24,8 +24,8 @@
                     <td>{{recette.title}}</td>
                     <td>{{recette.idUser.pseudo}}</td>
                     <td>
-                        <a class="btn btn-success">Modifier</a>
-                        <a class="btn btn-danger">Supprimer</a>
+                        <a class="btn btn-success" href="{{path('edit_recipe',{'slug':recette.slug})}}">Modifier</a>
+                        <a class="btn btn-danger"  href="{{path('delete_recipe',{'slug':recette.slug})}}">Supprimer</a>
                     </td>
                 </tr>
             {% endfor %}

@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\LikeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\LikeRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Bridge\Doctrine\ManagerRegistry;
 
 #[ORM\Entity(repositoryClass: LikeRepository::class)]
 #[ORM\Table(name: '`like`')]
-class Like
+class Like 
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,6 +23,8 @@ class Like
     #[ORM\ManyToOne(inversedBy: 'likes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Recipes $recipe = null;
+
+    
 
     public function getId(): ?int
     {
@@ -50,4 +54,6 @@ class Like
 
         return $this;
     }
+
+    
 }

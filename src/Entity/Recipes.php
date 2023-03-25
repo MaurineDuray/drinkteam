@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\RecipesRepository;
+use Symfony\Component\BrowserKit\Response;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: RecipesRepository::class)]
@@ -19,6 +21,7 @@ class Recipes
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Valid()]
     private ?string $title = null;
 
     #[ORM\Column]
@@ -37,6 +40,8 @@ class Recipes
     private ?int $portions = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Image(mimeTypes:["image/png","image/jpeg","image/jpg","image/gif"], mimeTypesMessage:"Vous devez upload un fichier jpg, jpeg, png ou gif")]
+    #[Assert\File(maxSize:"1024k", maxSizeMessage:"La taille du fichier est trop grande")]
     private ?string $image = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -99,6 +104,8 @@ class Recipes
         if(count($this->comments) > 0) return $moyennne = round($sum / count($this->comments));
         return 0;
     }
+
+    
 
 
     public function getId(): ?int

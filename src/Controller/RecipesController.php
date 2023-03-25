@@ -96,6 +96,54 @@ class RecipesController extends AbstractController
         ]);
     }
 
+    #[Route('/recettes/{slug}/edit', name:'edit_recipe')]
+    public function edit(Request $request, EntityManagerInterface $manager, Recipes $recipe):Response
+    {
+        $form = $this->createForm(RecipeType::class, $recipe);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+             /**Gestion de l'image de couverture */
+             $file = $form['image']->getData();
+             if (!empty($file)) {
+                 $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                 $safeFilename = transliterator_transliterate('Any-Latin;Latin-ASCII;[^A-Za-z0-9_]remove;Lower()', $originalFilename);
+                 $newFilename = $safeFilename . "-" . uniqid() . "." . $file->guessExtension();
+                 try {
+                     $file->move(
+                         $this->getParameter('uploads_directory'),
+                         $newFilename
+                     );
+                 } catch (FileException $e) {
+                     return $e->getMessage();
+                 }
+                 $recipe->setImage($newFilename);
+             }
+ 
+             $recipe->setIdUser($this->getUser());
+      
+ 
+             $manager->persist($recipe);
+             $manager->flush();
+ 
+             /**
+              * Message flash pour alerter l'utilisateur de l'état de la tâche
+              */
+             $this->addFlash(
+                 'success',
+                 "L'annonce <strong>{$recipe->getTitle()} - {$recipe->getCategory()}</strong> a bien été enregistrée!"
+             );
+ 
+             return $this->redirectToRoute('show_recipe', [
+                 'slug' => $recipe->getSlug()
+             ]);
+        }
+
+        return $this->render("recipes/edit.html.twig", [
+            'myform' => $form->createView()
+        ]);
+    }
 
     /**
      * Permet d'afficher une recette en particulier
@@ -148,7 +196,7 @@ class RecipesController extends AbstractController
         );
 
         unlink($this->getParameter('uploads_directory').'/'.$recipe->getImage());
-
+        
         $manager->remove($recipe);
         $manager->flush();
 

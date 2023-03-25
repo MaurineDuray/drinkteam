@@ -42,7 +42,8 @@ class RecipeType extends ApplicationType
             ->add('portions',IntegerType::class, $this->getConfiguration("Portions", "Nombre de portions de la recette"))
             ->add('image', FileType::class,[
                 "label"=> "Image de la recette(jpg, jpeg, png)",
-                "required"=>false
+                "required"=>true,
+                'data_class'=>null
             ])
             ->add('ingredient', TextareaType::class, $this->getConfiguration("Ingrédients", "Ingédients de la recette"))
             ->add('steps', TextareaType::class, $this->getConfiguration("Étapes", "Étapes de la recette"))
@@ -65,6 +66,7 @@ class RecipeType extends ApplicationType
     {
         $resolver->setDefaults([
             'data_class' => Recipes::class,
+            
         ]);
     }
 }
