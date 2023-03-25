@@ -29,6 +29,7 @@ class CommentController extends AbstractController
             "Le commentaire <strong>{$comment->getId()}</strong> a été supprimée"
         );
 
+        
 
         $manager->remove($comment);
         $manager->flush();

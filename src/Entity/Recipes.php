@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\RecipesRepository;
+use phpDocumentor\Reflection\PseudoTypes\Numeric_;
 use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -21,22 +22,31 @@ class Recipes
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Valid()]
+    #[Assert\NotBlank(message: "Vous devez renseigner votre prénom")]
+    #[Assert\Length(min: 3, max:100, minMessage:"Le titre de la recette doit faire au moins 3 caractères", maxMessage:"Le titre de la recette ne peut excéder 100 caractères")]
     private ?string $title = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Vous devez renseigner le temps de préparation")]
+    #[Assert\Type(type:"numeric", typeMessage:"La valeur doit être numérique")]
     private ?int $time = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Vous devez renseigner le niveau de difficulté de la préparation")]
+    #[Assert\Choice(['Facile', 'Moyen', 'Difficile'])]
     private ?string $level = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $note = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Vous devez renseigner le budget de la préparation")]
+    #[Assert\Choice(['Failbe', 'Moyen', 'Coûteux'])]
     private ?string $budget = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Vous devez renseigner le nombre de portions de la préparation")]
+    #[Assert\Type(type:"numeric", typeMessage:"La valeur doit être numérique")]
     private ?int $portions = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -45,19 +55,24 @@ class Recipes
     private ?string $image = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: "Vous devez renseigner les ingrédients")]
     private ?string $ingredient = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: "Vous devez renseigner les étapes de la préparation")]
     private ?string $steps = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Vous devez renseigner la catégorie de la préparation")]
     private ?string $category = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Vous devez renseigner le slug de la préparation")]
     private ?string $slug = null;
 
     #[ORM\ManyToOne(inversedBy: 'recettes')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(message: "Vous devez renseigner l'auteur")]
     private ?User $idUser = null;
 
     #[ORM\OneToMany(mappedBy: 'idRecipe', targetEntity: Comments::class, orphanRemoval: true)]
