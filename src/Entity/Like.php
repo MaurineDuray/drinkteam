@@ -19,12 +19,10 @@ class Like
 
     #[ORM\ManyToOne(inversedBy: 'likes')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Assert\NotBlank(message:"Vous devez renseigner l'auteur du like")]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'likes')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Assert\NotBlank(message:"Vous devez renseigner la recette likée")]
     private ?Recipes $recipe = null;
 
     

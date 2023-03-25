@@ -27,8 +27,7 @@
                     <td>{{comment.idRecipe.title}}</td>
                     <td>{{comment.idRecipe.idUser.pseudo}}</td>
                     <td>
-                        <a class="btn btn-success">Modifier</a>
-                        <a class="btn btn-danger">Supprimer</a>
+                        <a href="{{path('admin_delete_comment',{'id':comment.id})}}" class="btn btn-danger">Supprimer</a>
                     </td>
                 </tr>
             {% endfor %}

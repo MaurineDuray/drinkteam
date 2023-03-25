@@ -28,7 +28,7 @@ class Recipes
 
     #[ORM\Column]
     #[Assert\NotBlank(message: "Vous devez renseigner le temps de préparation")]
-    #[Assert\Type(type:"numeric", typeMessage:"La valeur doit être numérique")]
+    #[Assert\Type(type:"numeric", message:"La valeur doit être numérique")]
     private ?int $time = null;
 
     #[ORM\Column(length: 255)]
@@ -46,7 +46,7 @@ class Recipes
 
     #[ORM\Column]
     #[Assert\NotBlank(message: "Vous devez renseigner le nombre de portions de la préparation")]
-    #[Assert\Type(type:"numeric", typeMessage:"La valeur doit être numérique")]
+    #[Assert\Type(type:"numeric", message:"La valeur doit être numérique")]
     private ?int $portions = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -67,12 +67,10 @@ class Recipes
     private ?string $category = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Vous devez renseigner le slug de la préparation")]
     private ?string $slug = null;
 
     #[ORM\ManyToOne(inversedBy: 'recettes')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Assert\NotBlank(message: "Vous devez renseigner l'auteur")]
     private ?User $idUser = null;
 
     #[ORM\OneToMany(mappedBy: 'idRecipe', targetEntity: Comments::class, orphanRemoval: true)]

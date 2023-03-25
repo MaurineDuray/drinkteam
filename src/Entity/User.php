@@ -25,7 +25,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $email = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank(message:"Vous devez avoir un rôle")]
     private array $roles = [];
 
     /**
@@ -40,7 +39,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $pseudo = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message:"Vous devez renseigner le slug")]
     private ?string $slug = null;
 
     #[ORM\Column(length: 255, nullable: true)]
