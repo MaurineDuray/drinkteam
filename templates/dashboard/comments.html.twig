@@ -6,6 +6,13 @@
     <div class="container-fluid slide container">
         <h1>Gestion des commentaires</h1>
         <a class="btn btn-warning" href="{{path('dashboard')}}">Retour au dashboard</a>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        
         <table class='table' style="width: 100%">
             <thead>
                 <tr>

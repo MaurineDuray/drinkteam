@@ -14,6 +14,12 @@
         {% endif %}
     {% endif %}
     
+    {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+    {% endfor %}
+
     <div class="row">
         <div class="col-md picture">
             <img src="../uploads/{{recipe.image}}" alt="" class="card-img img-fluid">

@@ -26,7 +26,7 @@ class CommentController extends AbstractController
     {
         $this->addFlash(
             'success',
-            "Le commentaire <strong>{$comment->getId()}</strong> a été supprimée"
+            "Le commentaire a été supprimé"
         );
         $recette = $comment->getIdRecipe()->getSlug();
 
@@ -45,7 +45,7 @@ class CommentController extends AbstractController
     {
         $this->addFlash(
             'success',
-            "Le commentaire <strong>{$comment->getId()}</strong> a été supprimée"
+            "Le commentaire a été supprimé"
         );
 
         

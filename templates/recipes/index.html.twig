@@ -12,7 +12,11 @@
         <a href="{{path('home')}}"><button class="btn btn-warning m-3">
             <i class="fa-solid fa-arrow-left"></i> Retour à l'accueil</button>
         </a>
-
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
         <div class="card categories p-4">
             <p>Filtrer les recettes :</p>
             <div class="row justify-content-md-around">

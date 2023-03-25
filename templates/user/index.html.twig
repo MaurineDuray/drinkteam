@@ -5,6 +5,13 @@
 {% block body %}
 <div class="slide container">
 <a href="{{path('recettes_index')}}"><button class="btn btn-warning m-3"><< Retour aux recettes</button></a>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        
     <div class="row">
         <div class="card col-md">
             <img src="../uploads/{{user.avatar}}" alt="" class="card-img img-fluid">
