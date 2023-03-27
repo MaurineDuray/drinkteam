@@ -1,4 +1,5 @@
-<div class="col-md-4 card mt-3">
+ <div class="col-sm-4">
+<div class="card mt-3">
     
     {% if app.user %}
         {% set utilisateur = app.user %}
@@ -11,7 +12,9 @@
        
     {% endif %}
     
-    <img src="../uploads/{{recipe.image}}" class="card-img mt-3" alt="">
+    <div class="divimg" style="width:100%;height: 250px; overflow:hidden">
+        <img src="../uploads/{{recipe.image}}" class="card-img img-fluid" alt="" >
+    </div>
     <div class="card-body">
         <div class="category">{{recipe.category}}</div>
         <div class="card-title">
@@ -89,4 +92,5 @@
         </div>
         <a href="{{path('show_recipe', {"slug": recipe.slug})}}" class="btn btn-warning"><i class="fa-sharp fa-solid fa-eye"></i> Voir la recette</a>
     </div>
+</div>
 </div>

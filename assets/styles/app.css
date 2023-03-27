@@ -73,7 +73,24 @@ a:hover{
     display:flex;
     flex-wrap: nowrap;
     justify-content: space-between;
+
 }
+.card-body{
+    text-align: center;
+}
+.divimg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    
+}
+.divimg img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 #home{
     background-image: url(../../public/images/mike-kenneally-x0t6DiAg118-unsplash.jpg);
     background-repeat: no-repeat;
