@@ -30,7 +30,7 @@ class RecipesController extends AbstractController
     {
         $pagination -> setEntityClass(Recipes::class)
         ->setPage($page)
-        ->setLimit(12);
+        ->setLimit(6);
 
         return $this->render('recipes/index.html.twig', [
             'pagination' => $pagination,
@@ -93,10 +93,10 @@ class RecipesController extends AbstractController
             }
 
             $recipe->setIdUser($this->getUser());
-     
 
             $manager->persist($recipe);
             $manager->flush();
+
 
             /**
              * Message flash pour alerter l'utilisateur de l'état de la tâche
