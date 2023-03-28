@@ -59,7 +59,8 @@ class RecipesRepository extends ServiceEntityRepository
     public function findByCategory($category): array
     {
        return $this->createQueryBuilder('r')
-           ->select('r as recipe, r.slug, r.image, r.category, r.title, r.note, r.time, r.level, r.budget')
+           ->select('r as recipe, r.slug, r.image, r.category, r.title, r.note, r.time, r.level, r.budget, c.note')
+           ->join('r.comments','c')
            ->orderBy('r.id', 'DESC')
            ->where('r.category= :category')
            ->setParameter('category', $category)

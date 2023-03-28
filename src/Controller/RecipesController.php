@@ -37,7 +37,7 @@ class RecipesController extends AbstractController
         ]);
     }
 
-    #[Route('recettes/{category}', name:'recettes_category')]
+    #[Route('recettes/category={category}', name:'recettes_category')]
     public function showCategory(RecipesRepository $repo, Request $request):Response
     {
         $category=$request->get('category');

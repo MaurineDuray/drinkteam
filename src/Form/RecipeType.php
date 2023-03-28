@@ -56,7 +56,8 @@ class RecipeType extends ApplicationType
                     "Thé"=>"Thé",
                     "Limonade"=>"Limonade",
                     "Mocktail"=>"Mocktail",
-                    "Coktail"=>"Coktail"
+                    "Cocktail"=>"Cocktail",
+                    "Mix-fruité"=>"Mix-fruité"
                 ]
             ])
         ;
