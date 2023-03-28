@@ -41,7 +41,7 @@ class Recipes
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Vous devez renseigner le budget de la préparation")]
-    #[Assert\Choice(['Failbe', 'Moyen', 'Coûteux'])]
+    #[Assert\Choice(['Faible', 'Moyen', 'Coûteux'])]
     private ?string $budget = null;
 
     #[ORM\Column]

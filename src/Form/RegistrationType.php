@@ -21,7 +21,7 @@ class RegistrationType extends ApplicationType
             ->add('passwordConfirm', PasswordType::class, $this->getConfiguration("Confirmation du mot de passe", "Veuillez confirmer votre mot de passe"))
             ->add('avatar', FileType::class, [
                 "required"=>false,
-                'label'=>"Avatar(jpg, png, gif"
+                'label'=>"Avatar(jpg, png, gif)"
             ])
         ;
     }

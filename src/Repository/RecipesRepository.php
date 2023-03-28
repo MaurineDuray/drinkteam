@@ -53,6 +53,54 @@ class RecipesRepository extends ServiceEntityRepository
        ;
     }
 
+    /**
+    * @return Recipes[] Returns an array of Recipes objects
+    */
+    public function findByCategory($category): array
+    {
+       return $this->createQueryBuilder('r')
+           ->select('r as recipe, r.slug, r.image, r.category, r.title, r.note, r.time, r.level, r.budget')
+           ->orderBy('r.id', 'DESC')
+           ->where('r.category= :category')
+           ->setParameter('category', $category)
+           ->getQuery()
+           ->getResult()
+       ;
+    }
+
+     /**
+    * @return Recipes[] Returns an array of Recipes objects
+    */
+    public function findByUser(int $id): array
+    {
+       return $this->createQueryBuilder('r')
+           ->select('r as recipe')
+           ->orderBy('r.id', 'DESC')
+           ->where('r.id_user_id == ', $id)
+           ->getQuery()
+           ->getResult()
+       ;
+    }
+
+    /**
+     * Permet de récupérer les meilleures recettes
+     *
+     * @param integer $limit
+     * @return array
+     */
+    public function findBestRecipes(int $limit): array
+    {
+        return $this->createQueryBuilder('r')
+                ->select('r as recipes, AVG(c.rating) as avgRatings')
+                ->join('r.comments','c')
+                ->groupBy('r')
+                ->orderBy('avgRatings','DESC')
+                ->setMaxResults($limit)
+                ->getQuery()
+                ->getResult();
+    }
+
+
 //    /**
 //     * @return Recipes[] Returns an array of Recipes objects
 //     */

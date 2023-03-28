@@ -36,7 +36,27 @@ class RecipesController extends AbstractController
             'pagination' => $pagination,
         ]);
     }
+
+    #[Route('recettes/{category}', name:'recettes_category')]
+    public function showCategory(RecipesRepository $repo, Request $request):Response
+    {
+        $category=$request->get('category');
+        $recettes = $repo->findByCategory($category);
+
+        return $this->render('recipes/category.html.twig', [
+            'recettes' => $recettes,
+        ]);
+    }
     
+    #[Route('recettes/user/{id}', name:'recipes_of')]
+    public function recetteOfUser(RecipesRepository $repo):Response
+    {
+
+        $recettes = $repo->findByUser(1);
+        return $this->render('recipes/index.html.twig',[
+            'recettes'=>$recettes
+        ]);
+    }
 
     /**
      * Permet d'afficher le formulaire de création de l'ajout d'une recette

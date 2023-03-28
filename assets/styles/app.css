@@ -78,6 +78,9 @@ a:hover{
 .card-body{
     text-align: center;
 }
+.card-body a{
+    width: 100%;
+}
 .divimg{
     display: flex;
     justify-content: center;

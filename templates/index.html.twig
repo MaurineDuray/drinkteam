@@ -12,21 +12,21 @@
     </div>
     <div class="container my-4">
         <div class="card categories p-4">
-            <p>Filtrer les recettes :</p>
+           
             <div class="row justify-content-md-around">
-                <a href="" class="drink btn btn-warning col-md-2 mt-2">
+                <a href="{{path('recettes_category',{'category':'café'})}}" class="drink btn btn-warning col-md-2 mt-2">
                     <span class="drinkIcon mdi mdi-coffee"></span><br>Les cafés
                 </a>
-                <a href="" class="drink btn btn-warning col-md-2 mt-2">
+                <a href="{{path('recettes_category',{'category':'thé'})}}" class="drink btn btn-warning col-md-2 mt-2">
                     <span class="drinkIcon mdi mdi-tea"></span><br>Les thés
                 </a>
-                <a href="" class="drink btn btn-warning col-md-2 mt-2">
+                <a href="{{path('recettes_category',{'category':'limonade'})}}" class="drink btn btn-warning col-md-2 mt-2">
                      <i class="drinkIcon fa-solid fa-whiskey-glass"></i><br>Les limonades
                 </a>
-                <a href="" class="drink btn btn-warning col-md-2 mt-2">
+                <a href="{{path('recettes_category',{'category':'mocktail'})}}" class="drink btn btn-warning col-md-2 mt-2">
                    <i class="drinkIcon fa-solid fa-martini-glass-citrus"></i><br>Les mocktails
                 </a>
-                <a href="" class="drink btn btn-warning col-md-2 mt-2">
+                <a href="{{path('recettes_category',{'category':'cocktail'})}}" class="drink btn btn-warning col-md-2 mt-2">
                     <i class="drinkIcon fa-solid fa-martini-glass"></i><br>Les cocktails
                 </a>
                 
@@ -64,8 +64,8 @@
         <div class="container">
             <h3 class="orange">Le top 3 du moment</h3>
             <div class="row d-flex justify-content-md-around">
-                {% for data in recipes %}
-                    {% include "recipes/_recipecard.html.twig" with {'recipe': data.recipe} %}
+                {% for recipe in  bestRecipes %}
+                    {% include "recipes/_recipecardNote.html.twig"  %}
                 {% endfor %}
                
             </div>
