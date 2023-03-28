@@ -49,11 +49,11 @@ class RecipesController extends AbstractController
     }
     
     #[Route('recettes/user/{id}', name:'recipes_of')]
-    public function recetteOfUser(RecipesRepository $repo):Response
+    public function recetteOfUser(RecipesRepository $repo, Request $request):Response
     {
-
-        $recettes = $repo->findByUser(1);
-        return $this->render('recipes/index.html.twig',[
+        $user=$request->get('id');
+        $recettes = $repo->findByUser($user);
+        return $this->render('recipes/userRecipes.html.twig',[
             'recettes'=>$recettes
         ]);
     }
