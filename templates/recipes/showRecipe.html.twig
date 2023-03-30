@@ -197,7 +197,7 @@
                             <p> Commentaire: <br>{{comment.content}}</p>
                             {% if app.user %}
                                 {% if app.user.id == comment.idUser.id  %}
-                                    <button class="btn btn-success" href="{{path('edit_recipe',{'slug':comment.id})}}">Modifier</button>
+                                    <a class="btn btn-success" href="">Modifier</a>
                                 {% endif %}
                                 {% if app.user.id == comment.idUser.id or app.user.roles[0] == "ROLE_ADMIN" %}
                                     <a href="{{path('delete_comment',{"id":comment.id})}}" class="btn btn-danger">Supprimer</a>

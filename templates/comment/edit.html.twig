@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Edition du commentaire {% endblock %}
+
+{% block body %}
+    {% include "partials/header.html.twig" %}
+
+    <div class="container slide ">
+    {{form_start(myform)}}
+    {{form_end(myform)}}
+    </div>
+{% endblock %}
