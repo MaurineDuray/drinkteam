@@ -23,7 +23,7 @@ class LikeController extends AbstractController
         $manager->persist($like);
         $manager->flush();
            
-        return $this->redirect($request->getUri());
+        return $this->redirectToRoute('recettes_index');
     }
 
     #[Route('/unlike/{slug}', name: 'unlike')]
@@ -32,6 +32,6 @@ class LikeController extends AbstractController
         $manager->remove($like);
         $manager->flush();
 
-        return $this->redirect($request->getUri());
+        return $this->redirectToRoute('recettes_index');
     }
 }

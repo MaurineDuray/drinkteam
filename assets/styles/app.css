@@ -29,6 +29,17 @@ nav span{
     width: 50px;
     height: 50px;
 }
+form[name="search"] {
+   display: flex;
+   margin-bottom: 20px;
+}
+form[name="search"] :nth-child(1){
+    padding: 5px;
+}
+#search_search{
+    width: 200px;
+}
+
 .btn-warning{
     min-height: 40px;
     padding: 10px !important;

@@ -7,6 +7,7 @@ use App\Entity\Comments;
 use App\Form\RecipeType;
 use Symfony\Flex\Recipe;
 use App\Form\CommentType;
+use App\Form\SearchType;
 use App\Service\PaginationService;
 use App\Repository\RecipesRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,6 +20,24 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class RecipesController extends AbstractController
 {
+    // /**
+    //  * Affiche les recettes du site sans formulaire de recherche
+    //  *
+    //  * @param RecipesRepository $repo
+    //  * @return Response
+    //  */
+    // #[Route('/recettes/{page<\d+>?1}', name: 'recettes_index')]
+    // public function index(PaginationService $pagination, $page): Response
+    // {
+    //     $pagination -> setEntityClass(Recipes::class)
+    //     ->setPage($page)
+    //     ->setLimit(6);
+
+    //     return $this->render('recipes/index.html.twig', [
+    //         'pagination' => $pagination,
+    //     ]);
+    // }
+
     /**
      * Affiche les recettes du site
      *
@@ -26,15 +45,32 @@ class RecipesController extends AbstractController
      * @return Response
      */
     #[Route('/recettes/{page<\d+>?1}', name: 'recettes_index')]
-    public function index(PaginationService $pagination, $page): Response
+    public function index(Request $request, PaginationService $pagination, $page, RecipesRepository $repo): Response
     {
-        $pagination -> setEntityClass(Recipes::class)
-        ->setPage($page)
-        ->setLimit(6);
+        $searchForm = $this->createForm(SearchType::class);
 
-        return $this->render('recipes/index.html.twig', [
-            'pagination' => $pagination,
-        ]);
+        if ($searchForm->handleRequest($request)->isSubmitted() && $searchForm->isValid()){
+            $criteria = $searchForm['search']->getData();
+            $recettes = $repo->findRecipe($criteria);
+
+            return $this->render('recipes/search.html.twig', [
+                'search'=>$searchForm->createView(),
+                'recipes'=>$recettes,
+                'criteria'=>$criteria
+            ]);
+        }else{
+            $pagination -> setEntityClass(Recipes::class)
+                    ->setPage($page)
+                    ->setLimit(9);
+
+            return $this->render('recipes/index.html.twig', [
+                'search'=>$searchForm->createView(),
+                'pagination'=> $pagination,
+            ]);
+        }
+        
+
+        
     }
 
     #[Route('recettes/category={category}', name:'recettes_category')]

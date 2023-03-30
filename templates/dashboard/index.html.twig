@@ -3,15 +3,22 @@
 {% block title %}Administration{% endblock %}
 
 {% block body %}
-<div class="slidefill container-fluid">
-    <h1>Bienvenue dans l'administration</h1>
-    <div class="row d-flex justify-content-around card-orange">
+
+<div class="slide container-fluid " id="home">
+        <div id="txt-header">
+            <h1 ><i class="fa-solid fa-martini-glass-citrus"></i> Drink <b>Tea'</b>m</h1>
+            <br><p>Le rendez-vous des amateurs de boissons maisons !</p>
+        </div>
+</div>
+
+    <h1 class="mx-5 mt-4">Bienvenue dans l'administration</h1>
+    <div class="row d-flex justify-content-around card-orange" style="width:80%">
        
-            <a href="{{path('dashboard_recipes')}}" class="col-md-12 mt-2 btn btn-success">Gestion des recettes</a>
-            <a href="{{path('dashboard_users')}}" class="col-md-12 mt-2 btn btn-success">Gestion des utilisateurs</a>
-            <a href="{{path('dashboard_comments')}}" class="col-md-12 mt-2 btn btn-success">Gestion des commentaires</a>
-            <a href="" class="col-md-12 mt-2 btn btn-success">Gestion des likes</a>
+            <a href="{{path('dashboard_recipes')}}" class="col-md-4 mt-2 btn btn-success">Gestion des recettes</a>
+            <a href="{{path('dashboard_users')}}" class="col-md-4 mt-2 btn btn-success">Gestion des utilisateurs</a>
+            <a href="{{path('dashboard_comments')}}" class="col-md-4 mt-2 btn btn-success">Gestion des commentaires</a>
+            
         
     </div>
-</div>
+
 {% endblock %}

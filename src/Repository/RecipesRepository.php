@@ -103,6 +103,26 @@ class RecipesRepository extends ServiceEntityRepository
                 ->getResult();
     }
 
+    //Trouver une recette par la barre de recherche
+    public function findRecipe(string $criteria)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb
+            ->where(
+                $qb->expr()->andX(
+                    $qb->expr()->orX(
+                        $qb->expr()->like('p.title', ':criteria'),
+                        $qb->expr()->like('p.category', ':criteria'),
+                        $qb->expr()->like('p.ingredient', ':criteria')
+                    ),
+
+                )
+            )
+            ->setParameter('criteria', '%' . $criteria . '%');
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
 
 //    /**
 //     * @return Recipes[] Returns an array of Recipes objects

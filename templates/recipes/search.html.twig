@@ -8,7 +8,6 @@
    
     
     <div class="container my-3">
-    <h1 class="orange">Carnet de recettes</h1>
         <a href="{{path('home')}}"><button class="btn btn-warning m-3">
             <i class="fa-solid fa-arrow-left"></i> Retour à l'accueil</button>
         </a><br>
@@ -16,27 +15,35 @@
             <i class="fa-solid fa-arrow-left"></i> Retour au carnet</button>
             
         </a>
+        <h1 class="orange">Carnet de recettes</h1>
+        
+        {{form_start(search)}}
+     
+        {{form_end(search)}}
+
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">
                 {{ message }}
             </div>
         {% endfor %}
-        {% include "partials/_filter.html.twig" %}
+         {% include "partials/_filter.html.twig" %}
     </div>
 
     <div class="container">
-        <h2 class="orange">Catégorie : {{app.request.get('category') | capitalize}}s </h2>
+        <h2 class="orange">Votre recherche: {{criteria}} </h2>
         <div class="row d-flex justify-content-md-around">
-        {% if recettes is not empty %}
-            {% for recipe in recettes %}
-                 {% include "recipes/_recipeCardNote.html.twig" %}
+        {% if recipes is not empty %}
+            {% for recipe in recipes %}
+                {% include "recipes/_recipeCard.html.twig" %}
             {% endfor %}
         {% else %}
-            <h3>Il n'y a pas de recettes pour cette catégorie</h3>
+            <h3>Il n'y a pas de résultats pour votre recherche : <i> {{criteria}}</i></h3>
         {% endif %}
+           
+            
             
         </div>
-         
+        
        
         
     </div>
