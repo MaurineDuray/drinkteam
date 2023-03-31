@@ -20,18 +20,19 @@ class HomeController extends AbstractController
        
         $comments=$stats->getCommentsCount();
 
-        $bestRecipes = $stats->getRecipesStats('DESC');
+       
 
       
 
         return $this->render('index.html.twig', [
             'recipes' => $recipeRepo->findByLast(3),
+            'bestRecipes'=> $recipeRepo->findBestRecipes(3),
             'stats' => [
                 'users'=>$users,
                 'recipes'=>$recipes,
                 'comments'=>$comments
-            ],
-            'bestRecipes'=>$bestRecipes
+            ]
+           
             
         ]);
     }

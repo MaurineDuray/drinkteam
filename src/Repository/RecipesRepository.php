@@ -45,11 +45,29 @@ class RecipesRepository extends ServiceEntityRepository
     public function findByLast(int $limit): array
     {
        return $this->createQueryBuilder('r')
-           ->select('r as recipe')
+           ->select('r as recipe, r.slug, r.image, r.category, r.title, r.note, r.time, r.level, r.budget, AVG(c.note) as avgRatings')
+           ->leftjoin('r.comments','c')
+           ->groupBy('r')
            ->orderBy('r.id', 'DESC')
            ->setMaxResults($limit)
            ->getQuery()
            ->getResult()
+       ;
+    }
+
+      /**
+    * @return Recipes[] Returns an array of Recipes objects
+    */
+    public function findBestRecipes(int $limit): array
+    {
+       return $this->createQueryBuilder('r')
+        ->select('r as recipe, r.slug, r.image, r.category, r.title, r.note, r.time, r.level, r.budget, AVG(c.note) as avgRatings')
+        ->leftjoin('r.comments','c')
+        ->groupBy('r')
+        ->orderBy('avgRatings', 'DESC')
+        ->setMaxResults($limit)
+        ->getQuery()
+        ->getResult()
        ;
     }
 
@@ -59,8 +77,9 @@ class RecipesRepository extends ServiceEntityRepository
     public function findByCategory(string $category): array
     {
        return $this->createQueryBuilder('r')
-           ->select('r as recipe, r.slug, r.image, r.category, r.title, r.note, r.time, r.level, r.budget, c.note')
-           ->join('r.comments','c')
+           ->select('r as recipe, r.slug, r.image, r.category, r.title, r.note, r.time, r.level, r.budget, AVG(c.note) as avgRatings')
+           ->leftjoin('r.comments','c')
+           ->groupBy('r')
            ->orderBy('r.id', 'DESC')
            ->where('r.category= :category')
            ->setParameter('category', $category)
@@ -75,9 +94,10 @@ class RecipesRepository extends ServiceEntityRepository
     public function findByUser(int $id): array
     {
        return $this->createQueryBuilder('r')
-           ->select('r as recipe, r.slug, r.image, r.category, r.title, r.note, r.time, r.level, r.budget, c.note')
-           ->join('r.comments','c')
-           ->orderBy('r.id', 'DESC')
+           ->select('r as recipe, r.slug, r.image, r.category, r.title, r.time, r.level, r.budget, AVG(c.note) as avgRatings')
+           ->leftjoin('r.comments','c')
+           ->orderBy('avgRatings', 'ASC')
+           ->groupBy('r')
            ->where('r.idUser = :user')
            ->setParameter('user', $id)
            ->getQuery()
@@ -85,23 +105,8 @@ class RecipesRepository extends ServiceEntityRepository
        ;
     }
 
-    /**
-     * Permet de récupérer les meilleures recettes
-     *
-     * @param integer $limit
-     * @return array
-     */
-    public function findBestRecipes(int $limit): array
-    {
-        return $this->createQueryBuilder('r')
-                ->select('r as recipes, AVG(c.rating) as avgRatings')
-                ->join('r.comments','c')
-                ->groupBy('r')
-                ->orderBy('avgRatings','DESC')
-                ->setMaxResults($limit)
-                ->getQuery()
-                ->getResult();
-    }
+    
+
 
     //Trouver une recette par la barre de recherche
     public function findRecipe(string $criteria)
@@ -115,7 +120,6 @@ class RecipesRepository extends ServiceEntityRepository
                         $qb->expr()->like('p.category', ':criteria'),
                         $qb->expr()->like('p.ingredient', ':criteria')
                     ),
-
                 )
             )
             ->setParameter('criteria', '%' . $criteria . '%');

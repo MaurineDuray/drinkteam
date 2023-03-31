@@ -18,7 +18,7 @@
             <h3 class="orange">Nos dernières pépites </h3>
             <div class="row d-flex justify-content-md-around">
             {% for data in recipes %}
-               {% include "recipes/_recipecard.html.twig" with {'recipe': data.recipe} %}
+               {% include "recipes/_recipecardNote.html.twig" with {'recipe': data.recipe} %}
             {% endfor %}
             
             </div>
@@ -40,8 +40,8 @@
         <div class="container">
             <h3 class="orange">Le top 3 du moment</h3>
             <div class="row d-flex justify-content-md-around">
-                {% for recipe in  bestRecipes %}
-                    {% include "recipes/_recipecardNote.html.twig"  %}
+                {% for data in  bestRecipes %}
+                     {% include "recipes/_recipecardNote.html.twig" with {'recipe': data.recipe} %}
                 {% endfor %}
                
             </div>

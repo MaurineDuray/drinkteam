@@ -28,8 +28,8 @@
         <h2 class="orange">Catégorie : {{app.request.get('category') | capitalize}}s </h2>
         <div class="row d-flex justify-content-md-around">
         {% if recettes is not empty %}
-            {% for recipe in recettes %}
-                 {% include "recipes/_recipeCardNote.html.twig" %}
+            {% for data in recettes %}
+               {% include "recipes/_recipecard.html.twig" with {'recipe': data.recipe} %}
             {% endfor %}
         {% else %}
             <h3>Il n'y a pas de recettes pour cette catégorie</h3>

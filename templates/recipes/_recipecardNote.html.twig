@@ -3,13 +3,19 @@
     
     {% if app.user %}
         {% set utilisateur = app.user %}
-
-            <a href="{{path('like', {'slug': recipe.slug})}}">
-                <div class="like">
-                    <i class="fa-regular fa-heart"></i>
-                </div>
-            </a>
-       
+            {% if utilisateur == recipe.idUser %}
+                <a href="{{path('like', {'slug': recipe.slug})}}">
+                    <div class="like">
+                        <i class="fa-regular fa-heart"></i>
+                    </div>
+                </a>
+            {% else %}
+                <a href="{{path('unlike', {'slug': recipe.slug})}}">
+                    <div class="like">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                </a>
+            {% endif %}
     {% endif %}
     
     <div class="divimg" style="width:100%;height: 250px; overflow:hidden">
@@ -22,51 +28,48 @@
         </div>
         <div class="note">
             
-            {% if recipe.note is defined %}
-                {% if recipe.note < 1 %}
+            {% if recipe.avgRatings == 0 %}
                     <span class="mdi mdi-star-circle opacity"></span>
                     <span class="mdi mdi-star-circle opacity"></span>
                     <span class="mdi mdi-star-circle opacity"></span>
                     <span class="mdi mdi-star-circle opacity"></span>
                     <span class="mdi mdi-star-circle opacity"></span>
                 {% endif %}
-                {% if recipe.note > 1 and  recipe.note <= 2%}
+                {% if recipe.avgRatings == 1 %}
                     <span class="mdi mdi-star-circle "></span>
                     <span class="mdi mdi-star-circle opacity"></span>
                     <span class="mdi mdi-star-circle opacity"></span>
                     <span class="mdi mdi-star-circle opacity"></span>
                     <span class="mdi mdi-star-circle opacity"></span>
                 {% endif %}
-                {% if recipe.note > 2 and  recipe.note <= 3 %}
+                {% if recipe.avgRatings == 2 %}
                     <span class="mdi mdi-star-circle "></span>
                     <span class="mdi mdi-star-circle "></span>
                     <span class="mdi mdi-star-circle opacity"></span>
                     <span class="mdi mdi-star-circle opacity"></span>
                     <span class="mdi mdi-star-circle opacity"></span>
                 {% endif %}
-                {% if recipe.note > 3 and  recipe.note <= 4 %}
+                {% if recipe.avgRatings == 3 %}
                     <span class="mdi mdi-star-circle "></span>
                     <span class="mdi mdi-star-circle "></span>
                     <span class="mdi mdi-star-circle "></span>
                     <span class="mdi mdi-star-circle opacity"></span>
                     <span class="mdi mdi-star-circle opacity"></span>
                 {% endif %}
-                {% if recipe.note > 4 and  recipe.note < 5 %}
+                {% if recipe.avgRatings == 4 %}
                     <span class="mdi mdi-star-circle "></span>
                     <span class="mdi mdi-star-circle "></span>
                     <span class="mdi mdi-star-circle "></span>
                     <span class="mdi mdi-star-circle "></span>
                     <span class="mdi mdi-star-circle opacity"></span>
                 {% endif %}
-                {% if recipe.note >= 5 %}
+                {% if recipe.avgRatings == 5 %}
                     <span class="mdi mdi-star-circle "></span>
                     <span class="mdi mdi-star-circle "></span>
                     <span class="mdi mdi-star-circle "></span>
                     <span class="mdi mdi-star-circle "></span>
                     <span class="mdi mdi-star-circle "></span>
                 {% endif %}
-            
-            {% endif %}
             
         </div>
         

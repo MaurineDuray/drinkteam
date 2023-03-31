@@ -23,15 +23,10 @@
     <div class="container">
         <h2 class="orange">Recettes de l'utilisateur: {{app.request.get('id') | capitalize}} </h2>
         <div class="row d-flex justify-content-md-around">
-            {% for recipe in recettes %}
-                 {% include "recipes/_recipeCardNote.html.twig" %}
-            {% endfor %}
-            
-            
+           {% for data in recettes %}
+               {% include "recipes/_recipecardNote.html.twig" with {'recipe': data.recipe} %}
+            {% endfor %} 
         </div>
-         
-       
-        
     </div>
     
 
