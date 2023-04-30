@@ -15,7 +15,7 @@
     <div class="row">
         <div class="card col-md justify-content-center">
             {% if user.avatar %}
-                <img  class="img-fluid" style="max-width: 150px; margin-left:50%;transform: translateX(-50%);" src="../../uploads/{{recipe.image}}" alt="Avatar du user" class="card-img img-fluid">
+                <img  class="img-fluid" style="max-width: 150px; margin-left:50%;transform: translateX(-50%);" src="../../uploads/{{user.avatar}}" alt="Avatar du user" class="card-img img-fluid">
             {% else %}
                 <img class="img-fluid" style="max-width: 150px;  margin-left:50%;transform: translateX(-50%);"  src="../../images/userPicture.png" alt="Avatar du user">                
             {% endif %}
@@ -29,8 +29,10 @@
                 <p>Pseudo : {{user.pseudo}}</p>
                 <p>Email : {{user.email}}</p>
                 
-                <button class=" btn btn-warning"><i class="fa-solid fa-pen-to-square"></i> Modifier mes informations</button>
-                <button class=" btn btn-danger my-3"><i class="fa-solid fa-pen-to-square"></i> Modifier mon mot de passe</button>
+                <a href="{{path('account_profile')}}"><button class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i> Modifier mes informations</button></a><br>
+                <a href="{{path('account_password')}}"><button class="btn btn-danger my-3"><i class="fa-solid fa-pen-to-square"></i> Modifier mon mot de passe</button></a><br>
+                <a href="{{path('account_modifimg')}}"><button class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i> Modifier mon avatar</button></a><br>
+                <a href="{{path('account_delimg')}}"><button class="btn btn-danger my-3"><i class="fa-solid fa-pen-to-square"></i> Supprimer mon avatar</button></a>
             </div>
         </div>
     </div>
@@ -89,8 +91,8 @@
                         </div>
                     
                     <div class="raw">
-                        <a href="{{path('show_recipe', {"slug": recipe.slug})}}" class="col-md-12 btn btn-warning mx-2 mt-3"><i class="fa-sharp fa-solid fa-eye"></i> Voir</a>
-                        <a href="{{path('edit_recipe',{'slug':recipe.slug})}}"><button class="col-md-12 btn btn-success mx-2 mt-3"><i class="fa-solid fa-pen-to-square"></i>Editer</button></a>
+                        <a href="{{path('show_recipe', {"slug": recipe.slug})}}" class="col-md-12 btn btn-warning mx-2 mt-3"><i class="fa-sharp fa-solid fa-eye"></i> Voir</a><br>
+                        <a href="{{path('edit_recipe',{'slug':recipe.slug})}}"><button class="col-md-12 btn btn-success mx-2 mt-3"><i class="fa-solid fa-pen-to-square"></i>Editer</button></a><br>
                         <a href="{{path('delete_recipe',{"slug":recipe.slug})}}"><button class="col-md-12 btn btn-danger mx-2 mt-3"><i class="fa-solid fa-trash"></i>Supprimer</button></a>
                     </div>
                    
@@ -98,6 +100,9 @@
             </div>
             </div>
         {% endfor %}
+    {% else %}
+        <p>Vous n'avez pas encore publié de recettes</p>
+        <a href="{{path('new_recipe')}}"><button class="btn btn-success">Ajouter une recette</button></a>
     {% endif %}
        
     </div>

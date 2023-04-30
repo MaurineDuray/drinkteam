@@ -119,7 +119,26 @@
     </div>
    
    <hr>
-    
+
+    <div class="container">
+        <h4 class="text-warning">Ils ont aussi essayé la recette...</h4>
+
+        <div class="container">
+            {% if recipe.galeries | length>0 %}
+                {% for galery in recipe.galeries %}
+                    <img style="width:200px" src="../../uploads/{{galery.picture}}" alt="image du test">
+                {% endfor %}
+            {% endif %}
+        </div>
+        <p>Tu as testé la recette ? Poste la photo du résultat !</p>
+        
+        <a href="{{path('galery_recipe',{"slug": recipe.slug})}}"><button class="btn btn-success" type="submit"><i class="fa-solid fa-check"></i> Poster la photo de ma recette</button></a>
+        
+       
+
+       <hr> 
+    </div>
+   
    <div class="container">
         <h3 class="orange">Commentaires des utilisateurs</h3>
         {% if recipe.comments | length>0 %}

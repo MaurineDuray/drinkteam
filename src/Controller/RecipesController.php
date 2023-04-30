@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Recipes;
 use App\Entity\Comments;
+use App\Entity\Galery;
 use App\Form\RecipeType;
 use Symfony\Flex\Recipe;
 use App\Form\CommentType;
+use App\Form\GaleryType;
 use App\Form\SearchType;
 use App\Service\PaginationService;
 use App\Repository\RecipesRepository;
@@ -216,6 +218,8 @@ class RecipesController extends AbstractController
     #[Route('/recettes/{slug}', name:'show_recipe')]
     public function showRecipe(string $slug, Recipes $recipe, Request $request,EntityManagerInterface $manager):Response
     {
+
+        
         $comment = new Comments();
 
         $form = $this->createForm(CommentType::class, $comment);
@@ -241,9 +245,82 @@ class RecipesController extends AbstractController
             ]);
 
         }
+
+        $galery = new Galery();
+        $formGalery = $this->createForm(GaleryType::class, $galery);
+        $formGalery->handleRequest($request);
+        if($formGalery->isSubmitted() && $formGalery->isValid()){
+            $galery ->setRecipe($recipe);
+        
+            $manager->persist($galery);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "La photo a bien été enregistrée!"
+            );
+
+            return $this->redirectToRoute('show_recipe', [
+                'slug' => $recipe->getSlug(),
+            ]);
+        }
+
         return $this->render('recipes/showRecipe.html.twig',[
-        'recipe'=> $recipe,
-        'myform' => $form->createView()
+            'recipe'=> $recipe,
+            'myform' => $form->createView(),
+            'formgalery'=> $form->createView()
+        ]);
+    
+        
+    }
+
+    /**
+     * Permet dd'ajouter une photo à la galerie de résultat
+     */
+    #[Route('/recettes/{slug}/galery', name:'galery_recipe')]
+    public function addGalery(string $slug, Recipes $recipe, Request $request,EntityManagerInterface $manager):Response
+    {
+
+        $galery = new Galery();
+        $form = $this->createForm(GaleryType::class, $galery);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+
+            $file = $form['picture']->getData();
+            if (!empty($file)) {
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin;Latin-ASCII;[^A-Za-z0-9_]remove;Lower()', $originalFilename);
+                $newFilename = $safeFilename . "-" . uniqid() . "." . $file->guessExtension();
+                try {
+                    $file->move(
+                        $this->getParameter('uploads_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    return $e->getMessage();
+                }
+                $galery->setPicture($newFilename);
+            }
+
+            $galery ->setRecipe($recipe);
+        
+            $manager->persist($galery);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "La photo a bien été enregistrée!"
+            );
+
+            return $this->redirectToRoute('show_recipe', [
+                'slug' => $recipe->getSlug(),
+            ]);
+        }
+
+        return $this->render('recipes/addGalery.html.twig',[
+            'recipe'=> $recipe,
+            'myform' => $form->createView(),
+            
         ]);
     
         
