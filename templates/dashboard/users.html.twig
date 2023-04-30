@@ -31,8 +31,13 @@
                     <td>{{user.roles[0]}} </td>
                     <td>{{user.email}}</td>
                     <td>
+                        {% if user.pseudo != "Anonyme"  %}
                         <a class="btn btn-success">Modifier</a>
-                        <a class="btn btn-danger">Supprimer</a>
+                        {% endif %}
+                        {% if user.id > 1  %}
+                        <a href="{{path('profile_delete',{'id':user.id})}}" class="btn btn-danger">Supprimer</a>
+                        {% endif %}
+                        
                     </td>
                 </tr>
             {% endfor %}

@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Recipes;
 use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
+use Egulias\EmailValidator\Parser\Comment;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -48,6 +50,7 @@ class AccountController extends AbstractController
             'user' => $this->getUser()
         ]);
     }
+
 
     /**
      * Permet d'afficher le formulaire d'inscription d'un utilisateur et de l'ajouter à la base de données
@@ -106,6 +109,8 @@ class AccountController extends AbstractController
 
 
     }
+
+    
 
 
     

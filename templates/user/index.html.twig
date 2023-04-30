@@ -13,8 +13,14 @@
         {% endfor %}
         
     <div class="row">
-        <div class="card col-md">
-            <img src="../uploads/{{user.avatar}}" alt="" class="card-img img-fluid">
+        <div class="card col-md justify-content-center">
+            {% if user.avatar %}
+                <img  class="img-fluid" style="max-width: 150px; margin-left:50%;transform: translateX(-50%);" src="../../uploads/{{recipe.image}}" alt="Avatar du user" class="card-img img-fluid">
+            {% else %}
+                <img class="img-fluid" style="max-width: 150px;  margin-left:50%;transform: translateX(-50%);"  src="../../images/userPicture.png" alt="Avatar du user">                
+            {% endif %}
+           
+
         </div>
         <div class="col-md">
             <h1>Utilisateur : {{user.pseudo}}</h1>
@@ -36,12 +42,14 @@
     <h3 class="orange">Les recettes de {{user.pseudo}} </h3>
     {% endif %}
     
-    <div class="row d-flex justify-content-evenly">
+    <div class="row d-flex justify-content-md-around">
     {% if user.recettes | length > 0 %}
         {% for recipe in user.recettes %}
-             <div class="col-md-4 card mt-3">
-                
-                <img src="../uploads/{{recipe.image}}" class="card-img-top mt-3 img-fluid" alt="">
+         <div class="col-md-4">
+             <div class="card mt-3" style="padding: 10px, box-sizing:border-box">
+                <div class="divimg" style="width:100%;height: 250px; overflow:hidden">
+                    <img src="../../uploads/{{recipe.image}}" class="card-img img-fluid" alt="" >
+                </div>
                 <div class="card-body">
                     <div class="category">{{recipe.category}}</div>
                         <div class="card-title">
@@ -87,6 +95,7 @@
                     </div>
                    
                 </div>
+            </div>
             </div>
         {% endfor %}
     {% endif %}

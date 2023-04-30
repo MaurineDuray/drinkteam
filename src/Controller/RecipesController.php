@@ -73,6 +73,9 @@ class RecipesController extends AbstractController
         
     }
 
+    /**
+     * Afficher les recettes d'une catégorie 
+     */
     #[Route('recettes/category={category}', name:'recettes_category')]
     public function showCategory(RecipesRepository $repo, Request $request):Response
     {
@@ -84,6 +87,9 @@ class RecipesController extends AbstractController
         ]);
     }
     
+    /**
+     * Trouver les recettes d'un utilisateur
+     */
     #[Route('recettes/user/{id}', name:'recipes_of')]
     public function recetteOfUser(RecipesRepository $repo, Request $request):Response
     {
@@ -152,6 +158,9 @@ class RecipesController extends AbstractController
         ]);
     }
 
+    /**
+     * Permet d'éditer une recette
+     */
     #[Route('/recettes/{slug}/edit', name:'edit_recipe')]
     public function edit(Request $request, EntityManagerInterface $manager, Recipes $recipe):Response
     {
