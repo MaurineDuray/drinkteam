@@ -250,7 +250,8 @@ class RecipesController extends AbstractController
         $formGalery = $this->createForm(GaleryType::class, $galery);
         $formGalery->handleRequest($request);
         if($formGalery->isSubmitted() && $formGalery->isValid()){
-            $galery ->setRecipe($recipe);
+            $galery ->setRecipe($recipe)
+                    ->setAuthor($this->getUser());
         
             $manager->persist($galery);
             $manager->flush();
@@ -302,7 +303,8 @@ class RecipesController extends AbstractController
                 $galery->setPicture($newFilename);
             }
 
-            $galery ->setRecipe($recipe);
+            $galery ->setRecipe($recipe)
+                ->setAuthor($this->getUser());
         
             $manager->persist($galery);
             $manager->flush();

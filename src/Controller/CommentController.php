@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Recipes;
 use App\Entity\Comments;
+use App\Entity\Galery;
 use App\Form\CommentType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,12 +81,34 @@ class CommentController extends AbstractController
             "Le commentaire a été supprimé"
         );
 
-        
-
         $manager->remove($comment);
         $manager->flush();
 
         return $this->redirectToRoute('dashboard_comments');
+    }
+
+    /**
+     * PErmet de supprimer une image de galerie 
+     */
+    #[Route ('admin/galery/{id}/delete', name:"delete_galery")]
+    public function deleteGalery(Galery $galery, EntityManagerInterface $manager):Response
+    {
+        $this->addFlash(
+            'success',
+            "Votre image a bien été supprimée"
+        );
+
+        unlink($this->getParameter('uploads_directory').'/'.$galery->getPicture());
+
+        $manager->remove($galery);
+        $manager->flush();
+
+        $recette = $galery->getRecipe()->getSlug();
+
+        return $this->redirectToRoute('show_recipe',[
+            'slug'=>$recette
+        ]);
+
     }
 
 

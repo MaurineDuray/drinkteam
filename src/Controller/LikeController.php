@@ -12,8 +12,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class LikeController extends AbstractController
 {
-    #[Route('/like/{slug}', name: 'like')]
-    public function like(EntityManagerInterface $manager, Recipes $recipe, string $slug, Request $request): Response
+    #[Route('/like/{id}', name: 'like')]
+    public function like(EntityManagerInterface $manager, Recipes $recipe): Response
     {
         $like = new Like();
 
@@ -26,9 +26,10 @@ class LikeController extends AbstractController
         return $this->redirectToRoute('recettes_index');
     }
 
-    #[Route('/unlike/{slug}', name: 'unlike')]
-    public function unlike(EntityManagerInterface $manager, Like $like, Request $request):Response
+    #[Route('/unlike/{id}', name: 'unlike')]
+    public function unlike(EntityManagerInterface $manager, Like $like):Response
     {
+        
         $manager->remove($like);
         $manager->flush();
 

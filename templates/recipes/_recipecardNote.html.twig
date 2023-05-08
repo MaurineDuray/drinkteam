@@ -2,22 +2,21 @@
 <div class="card mt-3">
     
     {% if app.user %}
-        {% set utilisateur = app.user %}
-            {% if utilisateur == recipe.idUser %}
-                <a href="{{path('like', {'slug': recipe.slug})}}">
-                    <div class="like">
-                        <i class="fa-regular fa-heart"></i>
-                    </div>
-                </a>
-            {% else %}
-                <a href="{{path('unlike', {'slug': recipe.slug})}}">
+            {% if recipe.likes == app.user %}
+                <a href="{{path('unlike', {'id': recipe.id})}}">
                     <div class="like">
                         <i class="fa-solid fa-heart"></i>
                     </div>
                 </a>
+            {% else %}
+                <a href="{{path('like', {'id': recipe.id})}}">
+                    <div class="like">
+                        <i class="fa-regular fa-heart"></i>
+                    </div>
+                </a>
             {% endif %}
     {% endif %}
-    
+   
     <div class="divimg" style="width:100%;height: 250px; overflow:hidden">
         <img src="../../uploads/{{recipe.image}}" class="card-img img-fluid" alt="" >
     </div>

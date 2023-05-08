@@ -1,9 +1,6 @@
 
 const hearts = document.querySelectorAll('.like')
 
-
-
-
 hearts.forEach(item => {
     item.addEventListener('click', function(){
        

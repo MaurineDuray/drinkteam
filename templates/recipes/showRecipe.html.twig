@@ -123,22 +123,33 @@
     <div class="container">
         <h4 class="text-warning">Ils ont aussi essayé la recette...</h4>
 
-        <div class="container">
+        <div class="container-galery">
             {% if recipe.galeries | length>0 %}
                 {% for galery in recipe.galeries %}
-                    <img style="width:200px" src="../../uploads/{{galery.picture}}" alt="image du test">
+                    <div class="carte-galery">
+                        {% if app.user == galery.author or app.user.roles[0] == "ROLE_ADMIN"
+ %}
+                            <a href="{{path('delete_galery',{'id': galery.id})}}" class="btn btn-danger m-3"><i class="fa-solid fa-trash"></i></a>
+                        {% endif %}
+                       <img  src="../../uploads/{{galery.picture}}" alt="image du test">
+                    </div>
                 {% endfor %}
             {% endif %}
         </div>
-        <p>Tu as testé la recette ? Poste la photo du résultat !</p>
+
+        <p>Tu as testé la recette ? Connecte-toi et poste la photo du résultat !</p>
         
+        {% if app.user %}
         <a href="{{path('galery_recipe',{"slug": recipe.slug})}}"><button class="btn btn-success" type="submit"><i class="fa-solid fa-check"></i> Poster la photo de ma recette</button></a>
-        
+        {% else %}
+             <a href="{{path('register')}}"><button class="btn btn-warning mx-3">Je veux m'inscrire</button><a/>
+            <a href="{{path('account_login')}}"><button class="btn btn-success mx-2">Je me connecte</button></a>
+        {% endif %}
        
 
        <hr> 
     </div>
-   
+
    <div class="container">
         <h3 class="orange">Commentaires des utilisateurs</h3>
         {% if recipe.comments | length>0 %}
@@ -257,3 +268,4 @@
         </div>
     </div>
 {% endblock %}
+

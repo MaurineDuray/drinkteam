@@ -58,6 +58,14 @@ class AccountController extends AbstractController
         ]);
     }
 
+    #[Route("/profile/likes", name:"profile_like")]
+    public function myLikes():Response
+    {
+        return $this->render('user/like.html.twig',[
+            'user'=>$this->getUser()
+        ]);
+    }
+
 
     /**
      * Permet d'afficher le formulaire d'inscription d'un utilisateur et de l'ajouter à la base de données
