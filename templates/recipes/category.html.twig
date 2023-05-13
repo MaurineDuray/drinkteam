@@ -29,7 +29,7 @@
         <div class="row d-flex justify-content-md-around">
         {% if recettes is not empty %}
             {% for data in recettes %}
-               {% include "recipes/_recipecard.html.twig" with {'recipe': data.recipe} %}
+               {% include "recipes/_recipecardNote.html.twig" with {'recipe': data.recipe} %}
             {% endfor %}
         {% else %}
             <h3>Il n'y a pas de recettes pour cette catégorie</h3>

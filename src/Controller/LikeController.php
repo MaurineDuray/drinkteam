@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Like;
 use App\Entity\Recipes;
+use App\Repository\LikeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,17 +14,32 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class LikeController extends AbstractController
 {
     #[Route('/like/{id}', name: 'like')]
-    public function like(EntityManagerInterface $manager, Recipes $recipe): Response
+    public function like(EntityManagerInterface $manager, Recipes $recipe, LikeRepository $likeRepo): Response
     {
+       
         $like = new Like();
 
         $like->setUser($this->getUser())
         ->setRecipe($recipe);
 
-        $manager->persist($like);
-        $manager->flush();
+       
+            $manager->persist($like);
+            $manager->flush();
+
+            $this->addFlash(
+                "success",
+                "Vous avez aimé la recette : ".$recipe->getTitle().""
+            );
+
+            return $this->redirectToRoute('recettes_index');
+       
+               
+        
+            
+
+             
            
-        return $this->redirectToRoute('recettes_index');
+        
     }
 
     #[Route('/unlike/{id}', name: 'unlike')]

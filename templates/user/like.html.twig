@@ -24,6 +24,19 @@
         {% for recipe in user.likes %}
          <div class="col-md-4">
              <div class="card mt-3" style="padding: 10px, box-sizing:border-box">
+
+             {# Affichage du like #}
+             {% if app.user %}
+                    
+                        <a href="{{path('unlike', {'id': recipe.id})}}">
+                            <div class="like">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+                        </a>
+                   
+            {% endif %}
+            {#  #}
+
                 <div class="divimg" style="width:100%;height: 250px; overflow:hidden">
                     <img src="../../uploads/{{recipe.recipe.image}}" class="card-img img-fluid" alt="" >
                 </div>

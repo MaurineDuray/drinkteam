@@ -50,7 +50,7 @@ class RecipesController extends AbstractController
     public function index(Request $request, PaginationService $pagination, $page, RecipesRepository $repo): Response
     {
         $searchForm = $this->createForm(SearchType::class);
-
+        
         if ($searchForm->handleRequest($request)->isSubmitted() && $searchForm->isValid()){
             $criteria = $searchForm['search']->getData();
             $recettes = $repo->findRecipe($criteria);

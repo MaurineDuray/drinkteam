@@ -1,8 +1,8 @@
 <div class="col-md-4">
 <div class="card mt-3">
-    
+   
     {% if app.user %}
-            {% if recipe.likes == app.user %}
+            {% if app.user.likes in recipe.id %}
                 <a href="{{path('unlike', {'id': recipe.id})}}">
                     <div class="like">
                         <i class="fa-solid fa-heart"></i>
