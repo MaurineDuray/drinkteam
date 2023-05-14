@@ -13,6 +13,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class LikeController extends AbstractController
 {
+    /**
+     * Permet de liker une recette 
+     */
     #[Route('/like/{id}', name: 'like')]
     public function like(EntityManagerInterface $manager, Recipes $recipe, LikeRepository $likeRepo): Response
     {
@@ -32,16 +35,12 @@ class LikeController extends AbstractController
             );
 
             return $this->redirectToRoute('recettes_index');
-       
-               
-        
-            
-
-             
-           
-        
+         
     }
 
+    /**
+     * Permet de retirer le like sur une recette
+     */
     #[Route('/unlike/{id}', name: 'unlike')]
     public function unlike(EntityManagerInterface $manager, Like $like):Response
     {

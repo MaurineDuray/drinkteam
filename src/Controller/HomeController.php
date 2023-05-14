@@ -11,6 +11,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
+    /**
+     * Permet d'afficher la page d'accueil
+     *
+     * @param RecipesRepository $recipeRepo
+     * @param StatsService $stats
+     * @return Response
+     */
     #[Route('/', name: 'home')]
     public function index(RecipesRepository $recipeRepo,StatsService $stats): Response
     {
@@ -19,10 +26,6 @@ class HomeController extends AbstractController
         $recipes=$stats->getRecipesCount();
        
         $comments=$stats->getCommentsCount();
-
-       
-
-      
 
         return $this->render('index.html.twig', [
             'recipes' => $recipeRepo->findByLast(3),

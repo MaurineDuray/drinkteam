@@ -2,23 +2,25 @@
 
 namespace App\Controller;
 
+use App\Entity\Like;
+use App\Entity\Galery;
 use App\Entity\Recipes;
 use App\Entity\Comments;
-use App\Entity\Galery;
-use App\Form\RecipeType;
-use Symfony\Flex\Recipe;
-use App\Form\CommentType;
 use App\Form\GaleryType;
+use App\Form\RecipeType;
 use App\Form\SearchType;
+use App\Form\CommentType;
 use App\Service\PaginationService;
 use App\Repository\RecipesRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Flex\Recipe;
 
 class RecipesController extends AbstractController
 {
@@ -58,7 +60,9 @@ class RecipesController extends AbstractController
             return $this->render('recipes/search.html.twig', [
                 'search'=>$searchForm->createView(),
                 'recipes'=>$recettes,
-                'criteria'=>$criteria
+                'criteria'=>$criteria,
+              
+               
             ]);
         }else{
             $pagination -> setEntityClass(Recipes::class)
@@ -68,6 +72,7 @@ class RecipesController extends AbstractController
             return $this->render('recipes/index.html.twig', [
                 'search'=>$searchForm->createView(),
                 'pagination'=> $pagination,
+                
             ]);
         }
         

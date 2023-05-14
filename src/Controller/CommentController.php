@@ -14,14 +14,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CommentController extends AbstractController
 {
-    #[Route('/comment', name: 'app_comment')]
-    public function index(): Response
-    {
-        return $this->render('comment/index.html.twig', [
-            'controller_name' => 'CommentController',
-        ]);
-    }
-
+    
+    /**
+     * Permet d'éditer un commentaire
+     */
     #[Route('/comment/{id}', name:"edit_comment")]
     public function editComment(Comments $comment, Request $request, EntityManagerInterface $manager):Response
     {

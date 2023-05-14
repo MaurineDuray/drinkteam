@@ -16,6 +16,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DashbController extends AbstractController
 {
+    /**
+     * Afficchage de la page d'accueil du dashboard 
+     *
+     * @return Response
+     */
     #[Route('/dashboard', name: 'dashboard')]
     public function index(): Response
     {
@@ -24,6 +29,12 @@ class DashbController extends AbstractController
         ]);
     }
 
+    /**
+     * Affichage de la liste des recettes (administration)
+     *
+     * @param RecipesRepository $repo
+     * @return Response
+     */
     #[Route('/dashboard/recipes', name:'dashboard_recipes')]
     public function dash_recipes(RecipesRepository $repo ):Response
     {
@@ -33,6 +44,12 @@ class DashbController extends AbstractController
         ]);
     }
 
+    /**
+     * Affichage de la liste des utilisateurs (administrateur)
+     *
+     * @param UserRepository $repo
+     * @return Response
+     */
     #[Route('/dashboard/users', name:'dashboard_users')]
     public function dash_users(UserRepository $repo ):Response
     {
@@ -42,6 +59,9 @@ class DashbController extends AbstractController
         ]);
     }
 
+    /**
+     * Supprimer un user à partir de l'admin
+     */
     #[Route("/dashboard/users/{id}/delete", name:"profile_delete")]
     public function deleteAccount(User $user,  EntityManagerInterface $manager, ):Response
     {
@@ -78,6 +98,12 @@ class DashbController extends AbstractController
 
     }
 
+    /**
+     * Liste des commentaires dans l'admin
+     *
+     * @param CommentsRepository $repo
+     * @return Response
+     */
     #[Route('/dashboard/comments', name:'dashboard_comments')]
     public function dash_comments(CommentsRepository $repo ):Response
     {

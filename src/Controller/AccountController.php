@@ -25,6 +25,12 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AccountController extends AbstractController
 {
+    /**
+     * Permet à l'utilisateur de se connecter
+     *
+     * @param AuthenticationUtils $utils
+     * @return Response
+     */
     #[Route('/login', name: 'account_login')]
     public function index(AuthenticationUtils $utils): Response
     {
@@ -37,6 +43,11 @@ class AccountController extends AbstractController
         ]);
     }
 
+    /**
+     * Permet à l'utisilateur de se déconnecter
+     *
+     * @return void
+     */
     #[Route("/logout", name:"account_logout")]
     public function logout():void
     {
@@ -58,6 +69,11 @@ class AccountController extends AbstractController
         ]);
     }
 
+    /**
+     * Afficher les likes de l'utilisateur connecté
+     *
+     * @return Response
+     */
     #[Route("/profile/likes", name:"profile_like")]
     public function myLikes():Response
     {
@@ -174,6 +190,14 @@ class AccountController extends AbstractController
         ]);
     }
 
+    /**
+     * Permet de changer de mot de passe 
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @param UserPasswordHasherInterface $hasher
+     * @return Response
+     */
     #[Route("/account/password-update", name:'account_password')]
     #[IsGranted("ROLE_USER")]
     public function updatePassword(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $hasher): Response
