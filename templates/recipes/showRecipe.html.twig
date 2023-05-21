@@ -127,9 +127,10 @@
             {% if recipe.galeries | length>0 %}
                 {% for galery in recipe.galeries %}
                     <div class="carte-galery">
-                        {% if app.user == galery.author or app.user.roles[0] == "ROLE_ADMIN"
- %}
-                            <a href="{{path('delete_galery',{'id': galery.id})}}" class="btn btn-danger m-3"><i class="fa-solid fa-trash"></i></a>
+                        {% if app.user %}
+                            {% if app.user == galery.author or app.user.roles[0] == "ROLE_ADMIN"%}
+                                <a href="{{path('delete_galery',{'id': galery.id})}}" class="btn btn-danger m-3"><i class="fa-solid fa-trash"></i></a>    
+                            {% endif %}
                         {% endif %}
                        <img  src="../../uploads/{{galery.picture}}" alt="image du test">
                     </div>
