@@ -25,7 +25,8 @@
             <img src="../uploads/{{recipe.image}}" alt="" class="card-img img-fluid">
         </div>
         <div class="col-md">
-            <h1>{{recipe.title}}</h1>
+            <h1>{{recipe.title}}</h1> 
+             <i class="fa-solid fa-heart"></i> {{recipe.likes | length}}
             <div class="note">
                 {% if recipe.avgRatings == 0 %}
                     <span class="mdi mdi-star-circle opacity"></span>

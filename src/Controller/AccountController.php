@@ -12,7 +12,6 @@ use App\Form\RegistrationType;
 use App\Form\PasswordUpdateType;
 use Symfony\Component\Form\FormError;
 use Doctrine\ORM\EntityManagerInterface;
-use Egulias\EmailValidator\Parser\Comment;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;

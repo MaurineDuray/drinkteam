@@ -49,30 +49,33 @@ class RecipesController extends AbstractController
      * @return Response
      */
     #[Route('/recettes/{page<\d+>?1}', name: 'recettes_index')]
-    public function index(Request $request, PaginationService $pagination, $page, RecipesRepository $repo): Response
+    public function index(Request $request, PaginationService $pagination, $page, RecipesRepository $repo, EntityManagerInterface $manager): Response
     {
         $searchForm = $this->createForm(SearchType::class);
         
         if ($searchForm->handleRequest($request)->isSubmitted() && $searchForm->isValid()){
+            
             $criteria = $searchForm['search']->getData();
-            $recettes = $repo->findRecipe($criteria);
+            $recettes = $manager->getRepository(Recipes::class)->findRecipe($criteria);
+            $user = $this->getUser();
 
             return $this->render('recipes/search.html.twig', [
                 'search'=>$searchForm->createView(),
                 'recipes'=>$recettes,
                 'criteria'=>$criteria,
-              
-               
+                'user'=> $user
             ]);
         }else{
             $pagination -> setEntityClass(Recipes::class)
                     ->setPage($page)
                     ->setLimit(9);
+            
+            $user = $this->getUser();
 
             return $this->render('recipes/index.html.twig', [
                 'search'=>$searchForm->createView(),
                 'pagination'=> $pagination,
-                
+                'user'=> $user
             ]);
         }
         
@@ -88,9 +91,11 @@ class RecipesController extends AbstractController
     {
         $category=$request->get('category');
         $recettes = $repo->findByCategory($category);
-
+        $user = $this->getUser();
+        
         return $this->render('recipes/category.html.twig', [
             'recettes' => $recettes,
+            'user'=> $user
         ]);
     }
     

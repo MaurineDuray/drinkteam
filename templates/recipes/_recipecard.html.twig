@@ -1,8 +1,9 @@
  <div class="col-md-4">
 <div class="card mt-3">
    
+    {% if app.user %}
     
-            {% if recipe.id in app.user.likes %}
+            {% if recipe.likes.contains(user) %}
                 <a href="{{path('unlike', {'id': recipe.id})}}">
                     <div class="like">
                         <i class="fa-solid fa-heart"></i>
@@ -23,7 +24,8 @@
     <div class="card-body">
         <div class="category">{{recipe.category}}</div>
         <div class="card-title">
-            <b>{{recipe.title}}</b> 
+            <b>{{recipe.title}}</b>  <br>
+             <i class="fa-solid fa-heart"></i> {{recipe.likes | length}}
         </div>
         <div class="note">
            {% if recipe.avgRatings == 0 %}
