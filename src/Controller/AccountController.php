@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -59,7 +60,7 @@ class AccountController extends AbstractController
      * @return Response
      */
     #[Route("/profile", name:"profile")]
-    #[IsGranted("ROLE_USER")]
+    #[Security("(is_granted('ROLE_USER')) or is_granted('ROLE_ADMIN')", message:"Ce profil ne vous appartient pas, vous ne pouvez pas y accéder")]
     public function myAccount(): Response
     {
     
@@ -74,6 +75,7 @@ class AccountController extends AbstractController
      * @return Response
      */
     #[Route("/profile/likes", name:"profile_like")]
+    #[Security("(is_granted('ROLE_USER')) or is_granted('ROLE_ADMIN')", message:"Ce profil ne vous appartient pas, vous ne pouvez pas y accéder")]
     public function myLikes():Response
     {
         return $this->render('user/like.html.twig',[
@@ -148,7 +150,7 @@ class AccountController extends AbstractController
      * @return Response
      */
     #[Route("/account/profile", name:"account_profile")]
-    #[IsGranted("ROLE_USER")]
+    #[Security("(is_granted('ROLE_USER')) or is_granted('ROLE_ADMIN')", message:"Ce profil ne vous appartient pas, vous ne pouvez pas y accéder")]
     public function profile(Request $request, EntityManagerInterface $manager): Response
     {
         $user = $this->getUser(); // récup l'utilisateur connecté
@@ -244,7 +246,7 @@ class AccountController extends AbstractController
      * @return Response
      */
     #[Route("/account/imgmodify", name:"account_modifimg")]
-    #[IsGranted("ROLE_USER")]
+    #[Security("(is_granted('ROLE_USER')) or is_granted('ROLE_ADMIN')", message:"Ce profil ne vous appartient pas, vous ne pouvez pas y accéder")]
     public function imgModify(Request $request, EntityManagerInterface $manager): Response
     {
         $imgModify = new UserImgModify();
@@ -302,7 +304,7 @@ class AccountController extends AbstractController
      * @return Response
      */
     #[Route("/account/delimg", name:'account_delimg')]
-    #[IsGranted("ROLE_USER")]
+    #[Security("(is_granted('ROLE_USER')) or is_granted('ROLE_ADMIN')", message:"Ce profil ne vous appartient pas, vous ne pouvez pas y accéder")]
     public function removeImg(EntityManagerInterface $manager): Response
     {
         $user = $this->getUser();

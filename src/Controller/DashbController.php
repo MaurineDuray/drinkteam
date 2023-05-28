@@ -38,6 +38,7 @@ class DashbController extends AbstractController
      * @return Response
      */
     #[Route('/dashboard/recipes', name:'dashboard_recipes')]
+    #[IsGranted("ROLE_ADMIN")]
     public function dash_recipes(RecipesRepository $repo ):Response
     {
         $recettes = $repo->findAll();
@@ -53,6 +54,7 @@ class DashbController extends AbstractController
      * @return Response
      */
     #[Route('/dashboard/users', name:'dashboard_users')]
+    #[IsGranted("ROLE_ADMIN")]
     public function dash_users(UserRepository $repo ):Response
     {
         $users = $repo->findAll();
@@ -65,6 +67,7 @@ class DashbController extends AbstractController
      * Supprimer un user à partir de l'admin
      */
     #[Route("/dashboard/users/{id}/delete", name:"profile_delete")]
+    #[IsGranted("ROLE_ADMIN")]
     public function deleteAccount(User $user,  EntityManagerInterface $manager, ):Response
     {
         $this->addFlash(
@@ -107,6 +110,7 @@ class DashbController extends AbstractController
      * @return Response
      */
     #[Route('/dashboard/comments', name:'dashboard_comments')]
+    #[IsGranted("ROLE_ADMIN")]
     public function dash_comments(CommentsRepository $repo ):Response
     {
         $comments = $repo->findAll();

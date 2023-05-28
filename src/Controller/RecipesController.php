@@ -9,6 +9,7 @@ use App\Entity\Comments;
 use App\Form\GaleryType;
 use App\Form\RecipeType;
 use App\Form\SearchType;
+use Symfony\Flex\Recipe;
 use App\Form\CommentType;
 use App\Service\PaginationService;
 use App\Repository\RecipesRepository;
@@ -17,10 +18,11 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Flex\Recipe;
 
 class RecipesController extends AbstractController
 {
@@ -180,6 +182,7 @@ class RecipesController extends AbstractController
      * Permet d'éditer une recette
      */
     #[Route('/recettes/{slug}/edit', name:'edit_recipe')]
+    #[Security("(is_granted('ROLE_USER') and user === recipe.getIdUser()) or is_granted('ROLE_ADMIN')", message:"Cette recette ne vous appartient pas, vous ne pouvez pas la modifier")]
     public function edit(Request $request, EntityManagerInterface $manager, Recipes $recipe):Response
     {
         $form = $this->createForm(RecipeType::class, $recipe);
@@ -187,6 +190,8 @@ class RecipesController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
+            unlink($this->getParameter('uploads_directory').'/'.$recipe->getImage());
+
              /**Gestion de l'image de couverture */
              $file = $form['image']->getData();
              if (!empty($file)) {
@@ -295,6 +300,7 @@ class RecipesController extends AbstractController
      * Permet dd'ajouter une photo à la galerie de résultat
      */
     #[Route('/recettes/{slug}/galery', name:'galery_recipe')]
+    #[IsGranted("ROLE_USER")]
     public function addGalery(string $slug, Recipes $recipe, Request $request,EntityManagerInterface $manager):Response
     {
 
@@ -348,14 +354,18 @@ class RecipesController extends AbstractController
      * Permet de supprimer une recette
      */
     #[Route('/recettes/{slug}/delete', name:"delete_recipe")]
+    #[Security("(is_granted('ROLE_USER') and user === recipe.getIdUser()) or is_granted('ROLE_ADMIN')", message:"Cette recette ne vous appartient pas, vous ne pouvez pas la supprimer")]
     public function deleteRecipe(Recipes $recipe, EntityManagerInterface $manager):Response
     {
         $this->addFlash(
             'success',
             "L'annonce <strong>{$recipe->getTitle()}</strong> a été supprimée"
         );
-
+        
+            
+        
         unlink($this->getParameter('uploads_directory').'/'.$recipe->getImage());
+     
         
         $manager->remove($recipe);
         $manager->flush();

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "971b853f5bdc41fda9a45cf370c7a216",
+    "content-hash": "0837d1b3e6c8e92178989a65c316065b",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -79,6 +79,63 @@
                 "source": "https://github.com/cocur/slugify/tree/v4.3.0"
             },
             "time": "2022-12-07T19:48:48+00:00"
+        },
+        {
+            "name": "connectholland/cookie-consent-bundle",
+            "version": "0.12.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Harborn-digital/cookie-consent-bundle.git",
+                "reference": "85c206153f4d4e417ee3a75de0d3ebd6229fcf8d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Harborn-digital/cookie-consent-bundle/zipball/85c206153f4d4e417ee3a75de0d3ebd6229fcf8d",
+                "reference": "85c206153f4d4e417ee3a75de0d3ebd6229fcf8d",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/annotations": "^1.6|^2.0",
+                "doctrine/doctrine-bundle": "^1.10 || ^2.0",
+                "doctrine/orm": "^2.5",
+                "php": "^7.2 || ^8.0.2",
+                "symfony/asset": "^3.4 || ^4.2 || ^5.0 || ^6.0",
+                "symfony/dependency-injection": "^3.4 || ^4.2 || ^5.0 || ^6.0",
+                "symfony/doctrine-bridge": "^3.4 || ^4.2 || ^5.0 || ^6.0",
+                "symfony/expression-language": "^3.4 || ^4.2 || ^5.0 || ^6.0",
+                "symfony/form": "^3.4 || ^4.2 || ^5.0 || ^6.0",
+                "symfony/framework-bundle": "^3.4 || ^4.2 || ^5.0 || ^6.0",
+                "symfony/http-foundation": "^3.4 || ^4.2 || ^5.0 || ^6.0",
+                "symfony/templating": "^3.4 || ^4.2 || ^5.0 || ^6.0",
+                "symfony/translation": "^3.4 || ^4.2 || ^5.0 || ^6.0",
+                "symfony/twig-bridge": "^3.4 || ^4.2 || ^5.0 || ^6.0",
+                "symfony/twig-bundle": "^3.4 || ^4.2 || ^5.0 || ^6.0",
+                "twig/twig": "^2.6 || ^3.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.14",
+                "phpunit/phpunit": "^7.5",
+                "symfony/yaml": "^3.4 || ^4.2 || ^5.0 || ^6.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "ConnectHolland\\CookieConsentBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Symfony bundle for implementing Cookie Consent to comply to AVG/GDPR.",
+            "support": {
+                "issues": "https://github.com/Harborn-digital/cookie-consent-bundle/issues",
+                "source": "https://github.com/Harborn-digital/cookie-consent-bundle/tree/0.12.0"
+            },
+            "time": "2023-05-23T09:11:23+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -3753,16 +3810,16 @@
         },
         {
             "name": "symfony/framework-bundle",
-            "version": "v6.2.5",
+            "version": "v6.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/framework-bundle.git",
-                "reference": "3f6ea83b11b24271bb86deb82f915fb08621b964"
+                "reference": "01b1caa34ae121a192580acd38f66b7cb8b9ecce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/framework-bundle/zipball/3f6ea83b11b24271bb86deb82f915fb08621b964",
-                "reference": "3f6ea83b11b24271bb86deb82f915fb08621b964",
+                "url": "https://api.github.com/repos/symfony/framework-bundle/zipball/01b1caa34ae121a192580acd38f66b7cb8b9ecce",
+                "reference": "01b1caa34ae121a192580acd38f66b7cb8b9ecce",
                 "shasum": ""
             },
             "require": {
@@ -3884,7 +3941,7 @@
             "description": "Provides a tight integration between Symfony components and the Symfony full-stack framework",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/framework-bundle/tree/v6.2.5"
+                "source": "https://github.com/symfony/framework-bundle/tree/v6.2.7"
             },
             "funding": [
                 {
@@ -3900,7 +3957,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-11T11:53:46+00:00"
+            "time": "2023-02-24T10:42:00+00:00"
         },
         {
             "name": "symfony/http-client",
@@ -6535,6 +6592,74 @@
                 }
             ],
             "time": "2023-01-01T08:38:09+00:00"
+        },
+        {
+            "name": "symfony/templating",
+            "version": "v6.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/templating.git",
+                "reference": "25662be9cec98a2486487eca230a081ffa1a7832"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/templating/zipball/25662be9cec98a2486487eca230a081ffa1a7832",
+                "reference": "25662be9cec98a2486487eca230a081ffa1a7832",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony/polyfill-ctype": "~1.8"
+            },
+            "require-dev": {
+                "psr/log": "^1|^2|^3"
+            },
+            "suggest": {
+                "psr/log-implementation": "For using debug logging in loaders"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Templating\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides all the tools needed to build any kind of template system",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/templating/tree/v6.2.7"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-02-14T08:44:56+00:00"
         },
         {
             "name": "symfony/translation",

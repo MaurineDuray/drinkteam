@@ -53,6 +53,17 @@
                         });
                     });
                 });
+
+
+                const cookies = document.querySelector('.cookiesSlide')
+                const btncookie = document.querySelector('.btncookie')
+                btncookie.addEventListener('click',()=>{
+                    cookies.style.display="none"
+                    localStorage.setItem('cookie','oke')
+                })
+                if(localStorage.getItem('cookie')){
+                     cookies.style.display="none"
+                }
             </script>
         {% endblock %}
     </body>
