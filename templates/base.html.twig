@@ -54,8 +54,7 @@
                     });
                 });
 
-
-                const cookies = document.querySelector('.cookiesSlide')
+            const cookies = document.querySelector('.cookiesSlide')
                 const btncookie = document.querySelector('.btncookie')
                 btncookie.addEventListener('click',()=>{
                     cookies.style.display="none"
@@ -64,6 +63,7 @@
                 if(localStorage.getItem('cookie')){
                      cookies.style.display="none"
                 }
+                
             </script>
         {% endblock %}
     </body>

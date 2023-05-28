@@ -7,6 +7,7 @@
 {% block body %}
 <div class="slide container">
 <a href="{{path('recettes_index')}}"><button class="btn btn-warning m-3"><i class="fa-solid fa-arrow-left"></i> Retour aux recettes</button></a>
+
     {% if app.user %}
         {% if recipe.idUser.id == app.user.id or app.user.roles[0] == "ROLE_ADMIN" %}
             <a class="btn btn-success m-3" href="{{path('edit_recipe',{'slug':recipe.slug})}}"><i class="fa-solid fa-pen-to-square"></i> Editer la recette</button></a>
@@ -141,7 +142,7 @@
                 {% endfor %}
             {% endif %}
         </div> #}
-        {% if recipe.galeries | length > 0 %}
+      
         <div id="carouselExampleCaptions" class="carousel"  data-bs-ride="false">
             <div class="carousel-indicators">
             {% for galery in recipe.galeries %}
@@ -166,7 +167,7 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        {% endif %}        
+          
 
         {% if recipe.galeries | length == 0 %}
             <p><b>Sois le premier à partager ton résultat !</b></p>
@@ -179,7 +180,7 @@
              <a href="{{path('register')}}"><button class="btn btn-warning ">Je veux m'inscrire</button><a/>
             <a href="{{path('account_login')}}"><button class="btn btn-success mx-2">Je me connecte</button></a>
         {% endif %}
-       
+    
 
        <hr> 
     </div>
