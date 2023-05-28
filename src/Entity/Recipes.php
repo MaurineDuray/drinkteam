@@ -76,7 +76,7 @@ class Recipes
     #[ORM\OneToMany(mappedBy: 'idRecipe', targetEntity: Comments::class, orphanRemoval: true)]
     private Collection $comments;
 
-    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Like::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Like::class, orphanRemoval: true, cascade:["persist"])]
     private Collection $likes;
 
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Galery::class, orphanRemoval: true)]

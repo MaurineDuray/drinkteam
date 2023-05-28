@@ -1,21 +1,31 @@
 <div class="col-md-4">
 <div class="card mt-3">
    
-    {% if user %}
-    
-            {% if recipe.likes.contains(user) %}
-                <a href="{{path('unlike', {'id': recipe.id})}}">
-                    <div class="like">
-                        <i class="fa-solid fa-heart"></i>
-                    </div>
-                </a>
-            {% else %}
-                <a href="{{path('like', {'id': recipe.id})}}">
-                    <div class="like">
-                        <i class="fa-regular fa-heart"></i>
-                    </div>
-                </a>
-            {% endif %}
+    {% if app.user %}
+        {% if recipe.likes | length==0 %}
+            <a href="{{path('like', {'id': recipe.id})}}">
+                <div class="like">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+            </a>
+        {% else %}
+            {% for like in recipe.likes %}
+                {% if like.user.id == app.user.id%}
+                    <a href="{{path('unlike', {'id': like.id})}}">
+                        <div class="like">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+                    </a>
+                {% else %}
+                    <a href="{{path('like', {'id': recipe.id})}}">
+                        <div class="like">
+                            <i class="fa-regular fa-heart"></i>
+                        </div>
+                    </a>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        
     {% endif %}
    
     <div class="divimg" style="width:100%;height: 250px; overflow:hidden">

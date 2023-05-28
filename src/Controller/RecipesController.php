@@ -58,12 +58,14 @@ class RecipesController extends AbstractController
             $criteria = $searchForm['search']->getData();
             $recettes = $manager->getRepository(Recipes::class)->findRecipe($criteria);
             $user = $this->getUser();
+            $likes = $manager->getRepository(Like::class)->findAll();
 
             return $this->render('recipes/search.html.twig', [
                 'search'=>$searchForm->createView(),
                 'recipes'=>$recettes,
                 'criteria'=>$criteria,
-                'user'=> $user
+                'user'=> $user,
+                'likes'=>$likes
             ]);
         }else{
             $pagination -> setEntityClass(Recipes::class)
@@ -71,11 +73,13 @@ class RecipesController extends AbstractController
                     ->setLimit(9);
             
             $user = $this->getUser();
+            $likes = $manager->getRepository(Like::class)->findAll();
 
             return $this->render('recipes/index.html.twig', [
                 'search'=>$searchForm->createView(),
                 'pagination'=> $pagination,
-                'user'=> $user
+                'user'=> $user,
+                'likes'=>$likes
             ]);
         }
         
@@ -87,15 +91,17 @@ class RecipesController extends AbstractController
      * Afficher les recettes d'une catégorie 
      */
     #[Route('recettes/category={category}', name:'recettes_category')]
-    public function showCategory(RecipesRepository $repo, Request $request):Response
+    public function showCategory(RecipesRepository $repo, Request $request, EntityManagerInterface $manager):Response
     {
         $category=$request->get('category');
         $recettes = $repo->findByCategory($category);
         $user = $this->getUser();
+        $likes = $manager->getRepository(Like::class)->findAll();
         
         return $this->render('recipes/category.html.twig', [
             'recettes' => $recettes,
-            'user'=> $user
+            'user'=> $user,
+            'likes'=>$likes
         ]);
     }
     

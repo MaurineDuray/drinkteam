@@ -19,15 +19,16 @@ class LikeController extends AbstractController
     #[Route('/like/{id}', name: 'like')]
     public function like(EntityManagerInterface $manager, Recipes $recipe, LikeRepository $likeRepo): Response
     {
-       
+        $recipe = $manager->getRepository(Recipes::class)->find($recipe);
+        $user = $this->getUser();
+
         $like = new Like();
 
-        $like->setUser($this->getUser())
-        ->setRecipe($recipe);
+        $like->setUser($user);
 
-       
-            $manager->persist($like);
-            $manager->flush();
+        $recipe->addLike($like);
+        $manager->persist($recipe);
+        $manager->flush();
 
             $this->addFlash(
                 "success",
