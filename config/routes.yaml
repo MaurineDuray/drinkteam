@@ -4,6 +4,6 @@ controllers:
         namespace: App\Controller
     type: attribute
 
-# app_like_recipe:
-#     path: '/like/{id}'
-#     controller: App\Controller\LikeController::like
+like:
+    path: '/like/{id}'
+    controller: App\Controller\LikeController::like

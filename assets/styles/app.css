@@ -191,7 +191,18 @@ a:hover{
     color: white;
     padding: 1px 10px 1px 10px;
     border-radius: 20px;
-    
+}
+.galeries{
+    position: absolute;
+    width: 60px;
+    font-size: 12pt;
+    margin-top: -250px;
+    z-index: 10;
+    background-color: rgba(53, 53, 53, 0.784);
+    color: white;
+    padding: 1px 10px 1px 10px;
+    border-radius: 20px;
+    margin-right: 100px;
 }
 .opacity{
     opacity: 0.3;
@@ -241,6 +252,18 @@ a:hover{
     position: absolute;
     top: 2px;
     right: 2px;
+}
+.carousel{
+    width: 60%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    height: 40vh; 
+    overflow:hidden
+}
+@media all and (max-width:950px){
+    .carousel{
+        width: 100%;
+    }
 }
 
 /* Footer ****** */

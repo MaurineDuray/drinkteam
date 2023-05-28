@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class LikeController extends AbstractController
@@ -17,7 +18,7 @@ class LikeController extends AbstractController
      * Permet de liker une recette 
      */
     #[Route('/like/{id}', name: 'like')]
-    public function like(EntityManagerInterface $manager, Recipes $recipe, LikeRepository $likeRepo): Response
+    public function like(EntityManagerInterface $manager, Recipes $recipe, LikeRepository $likeRepo, Request $request): Response
     {
         $recipe = $manager->getRepository(Recipes::class)->find($recipe);
         $user = $this->getUser();
@@ -30,12 +31,14 @@ class LikeController extends AbstractController
         $manager->persist($recipe);
         $manager->flush();
 
+        $referer = $request->headers->get('referer');
+
             $this->addFlash(
                 "success",
                 "Vous avez aimé la recette : ".$recipe->getTitle().""
             );
 
-            return $this->redirectToRoute('recettes_index');
+        return new RedirectResponse($referer);
          
     }
 
@@ -43,12 +46,13 @@ class LikeController extends AbstractController
      * Permet de retirer le like sur une recette
      */
     #[Route('/unlike/{id}', name: 'unlike')]
-    public function unlike(EntityManagerInterface $manager, Like $like):Response
+    public function unlike(EntityManagerInterface $manager, Like $like, Request $request):Response
     {
-        
+        $referer = $request->headers->get('referer');
+
         $manager->remove($like);
         $manager->flush();
 
-        return $this->redirectToRoute('recettes_index');
+        return new RedirectResponse($referer);
     }
 }

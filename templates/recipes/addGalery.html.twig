@@ -11,7 +11,10 @@
 
     <div class="container slide ">
         <h1 style="margin-bottom: 50px; margin-top: 30px; text-align:center;">Ajout de ton résultat à la galerie</h1>
-        <p style="text-align:center;"><b>Tu as testé la recette, poste ton résultat !</b></p>
+        <p style="text-align:center;"><b>Tu as testé la recette "{{recipe.title}}", poste ton résultat !</b></p>
+       
+            <img src="../uploads/{{recipe.image}}" alt="" class="card-img img-fluid" style="width: 200px">
+        
         <a href="{{path('recettes_index')}}"><button class="btn btn-warning m-3">
             <i class="fa-solid fa-arrow-left"></i> Retour au carnet de recettes</button></a>
         {{form_start(myform)}}

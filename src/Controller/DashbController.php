@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Egulias\EmailValidator\Result\Reason\CommentsInIDRight;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DashbController extends AbstractController
@@ -22,6 +23,7 @@ class DashbController extends AbstractController
      * @return Response
      */
     #[Route('/dashboard', name: 'dashboard')]
+    #[IsGranted("ROLE_ADMIN")]
     public function index(): Response
     {
         return $this->render('dashboard/index.html.twig', [

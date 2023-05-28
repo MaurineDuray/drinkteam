@@ -124,7 +124,10 @@
     <div class="container">
         <h4 class="text-warning">Ils ont aussi essayé la recette...</h4>
 
-        <div class="container-galery">
+        {# <div class="container-galery">
+            <div class="carte-galery">
+            <img  src="../../uploads/{{recipe.image}}" alt="image du test">
+            </div>
             {% if recipe.galeries | length>0 %}
                 {% for galery in recipe.galeries %}
                     <div class="carte-galery">
@@ -137,14 +140,43 @@
                     </div>
                 {% endfor %}
             {% endif %}
+        </div> #}
+        {% if recipe.galeries | length>0 %}
+        <div id="carouselExampleCaptions" class="carousel"  data-bs-ride="false">
+            <div class="carousel-indicators">
+            {% for galery in recipe.galeries %}
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{loop.index0}}" {% if loop.first %} class="active" aria-current="true" {% endif %} aria-label="Slide {{loop.index}}"></button>
+            {% endfor %} 
+            
+            </div>
+            <div class="carousel-inner">
+                {% for galery in recipe.galeries %}
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                        <img src="../../uploads/{{galery.picture}}" class="d-block w-100" alt="image de {{recipe.title}}" style="transform:translateY(-50%); margin-top:50%">
+                    </div>
+                {% endfor %}
+            
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
+        {% endif %}        
 
+        {% if recipe.galeries | length == 0 %}
+            <p><b>Sois le premier à partager ton résultat !</b></p>
+        {% endif %}
         <p>Tu as testé la recette ? Connecte-toi et poste la photo du résultat !</p>
         
         {% if app.user %}
         <a href="{{path('galery_recipe',{"slug": recipe.slug})}}"><button class="btn btn-success" type="submit"><i class="fa-solid fa-check"></i> Poster la photo de ma recette</button></a>
         {% else %}
-             <a href="{{path('register')}}"><button class="btn btn-warning mx-3">Je veux m'inscrire</button><a/>
+             <a href="{{path('register')}}"><button class="btn btn-warning ">Je veux m'inscrire</button><a/>
             <a href="{{path('account_login')}}"><button class="btn btn-success mx-2">Je me connecte</button></a>
         {% endif %}
        
@@ -262,7 +294,7 @@
         {% else %}
             
             <p>Inscris-toi ou connecte toi ! 
-                <a href="{{path('register')}}"><button class="btn btn-warning mx-3">Je veux m'inscrire</button><a/>
+                <a href="{{path('register')}}"><button class="btn btn-warning ">Je veux m'inscrire</button><a/>
                 <a href="{{path('account_login')}}"><button class="btn btn-success mx-2">Je me connecte</button></a>
             </p>
         {% endif %}
