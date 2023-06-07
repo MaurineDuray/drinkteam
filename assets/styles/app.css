@@ -306,6 +306,7 @@ footer{
     line-height: 40px;
 }
 .footer nav ul li a{
-    text-decoration: none;
+    text-decoration: underline;
+    color: white;
 
 }

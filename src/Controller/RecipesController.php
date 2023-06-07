@@ -11,6 +11,7 @@ use App\Form\RecipeType;
 use App\Form\SearchType;
 use Symfony\Flex\Recipe;
 use App\Form\CommentType;
+use App\Form\ModifyRecipeType;
 use App\Service\PaginationService;
 use App\Repository\RecipesRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -185,16 +186,17 @@ class RecipesController extends AbstractController
     #[Security("(is_granted('ROLE_USER') and user === recipe.getIdUser()) or is_granted('ROLE_ADMIN')", message:"Cette recette ne vous appartient pas, vous ne pouvez pas la modifier")]
     public function edit(Request $request, EntityManagerInterface $manager, Recipes $recipe):Response
     {
-        $form = $this->createForm(RecipeType::class, $recipe);
+        $form = $this->createForm(ModifyRecipeType::class, $recipe);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
         {
-            unlink($this->getParameter('uploads_directory').'/'.$recipe->getImage());
-
+            
              /**Gestion de l'image de couverture */
              $file = $form['image']->getData();
              if (!empty($file)) {
+
+
                  $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                  $safeFilename = transliterator_transliterate('Any-Latin;Latin-ASCII;[^A-Za-z0-9_]remove;Lower()', $originalFilename);
                  $newFilename = $safeFilename . "-" . uniqid() . "." . $file->guessExtension();
@@ -207,6 +209,8 @@ class RecipesController extends AbstractController
                      return $e->getMessage();
                  }
                  $recipe->setImage($newFilename);
+             }else{
+                $recipe->setImage($recipe->getImage());
              }
  
              $recipe->setIdUser($this->getUser());

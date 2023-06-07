@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RecipeType extends ApplicationType
+class ModifyRecipeType extends ApplicationType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -43,7 +43,7 @@ class RecipeType extends ApplicationType
             ->add('image', FileType::class,[
                 "label"=> "Image de la recette(jpg, jpeg, png)",
                 'data_class'=>null,
-                "required"=>true,
+                "required"=>false,
             ])
             ->add('ingredient', TextareaType::class, $this->getConfiguration("Ingrédients", "Ingédients de la recette"))
             ->add('steps', TextareaType::class, $this->getConfiguration("Étapes", "Étapes de la recette"))
@@ -66,8 +66,7 @@ class RecipeType extends ApplicationType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Recipes::class,
-            
+            'data_class' => Recipes::class, 
         ]);
     }
 }
