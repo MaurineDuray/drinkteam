@@ -157,10 +157,10 @@
                     <div class="carousel-item {% if loop.first %}active{% endif %}">
                         {% if app.user %}
                             {% if app.user == galery.author or app.user.roles[0] == "ROLE_ADMIN"%}
-                                <a href="{{path('delete_galery',{'id': galery.id})}}" class="btn btn-danger mx-3 my-3" style="z-index:500"><i class="fa-solid fa-trash"></i></a>    
+                                <a href="{{path('delete_galery',{'id': galery.id})}}" class="btn btn-danger mx-3 my-3" style="z-index:500; position:absolute"><i class="fa-solid fa-trash"></i></a>    
                             {% endif %}
                         {% endif %}
-                        <img src="../../uploads/{{galery.picture}}" class="d-block w-100" alt="image de {{recipe.title}}" style="transform:translateY(-50%); margin-top:50%">
+                        <img src="../uploads/{{galery.picture}}" class="d-block w-100" alt="image de {{recipe.title}}" >
                         
                     </div>
                     
