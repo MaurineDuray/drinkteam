@@ -20,7 +20,7 @@
             <h3 class="orange">Nos dernières pépites </h3>
             <div class="row d-flex justify-content-md-around">
             {% for data in recipes %}
-               {% include "recipes/_recipecardNote.html.twig" with {'recipe': data.recipe} %}
+               {% include "partials/recipeCardNote.html.twig" with {'recipe': data.recipe} %}
             {% endfor %}
             
             </div>
@@ -43,7 +43,7 @@
             <h3 class="orange">Le top 3 du moment</h3>
             <div class="row d-flex justify-content-md-around">
                 {% for data in  bestRecipes %}
-                     {% include "recipes/_recipecardNote.html.twig" with {'recipe': data.recipe} %}
+                     {% include "partials/recipeCardNote.html.twig" with {'recipe': data.recipe} %}
                 {% endfor %}
                
             </div>
