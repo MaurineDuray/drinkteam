@@ -337,7 +337,7 @@ class RecipesController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "La photo a bien été enregistrée!"
+                "La photo de votre résultat a bien été enregistrée!"
             );
 
             return $this->redirectToRoute('show_recipe', [
@@ -363,7 +363,7 @@ class RecipesController extends AbstractController
     {
         $this->addFlash(
             'success',
-            "L'annonce <strong>{$recipe->getTitle()}</strong> a été supprimée"
+            "La recette {$recipe->getTitle()}a été supprimée"
         );
         
             

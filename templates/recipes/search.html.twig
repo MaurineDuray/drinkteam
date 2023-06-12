@@ -34,7 +34,7 @@
         <div class="row d-flex justify-content-md-around">
         {% if recipes is not empty %}
             {% for recipe in recipes %}
-                {% include "recipes/_recipeCard.html.twig" %}
+                 {% include "./partials/recipeCardNote.html.twig" %}
             {% endfor %}
         {% else %}
             <h3>Il n'y a pas de résultats pour votre recherche : <i> {{criteria}}</i></h3>

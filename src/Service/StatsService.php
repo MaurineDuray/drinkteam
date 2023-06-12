@@ -24,11 +24,7 @@ class StatsService {
 
     }
 
-    // public function getBookingsCount():int
-    // {
-    //     return $this->manager->createQuery("SELECT COUNT(b) FROM App\Entity\Booking b")->getSingleScalarResult();
-
-    // }
+    
 
     public function getCommentsCount():int
     {

@@ -27,30 +27,6 @@
         {% endif %}
         
     {% endif %}
-
-
-    {# {% if app.user %}
-        {% if recipe.likes | length==0 %}
-           
-                <div class="like like-button" data-recipe-id="{{ recipe.id }}">
-                    <i class="fa-regular fa-heart"></i>
-                </div>
-            
-        {% else %}
-            {% for like in recipe.likes %}
-                {% if like.user.id == app.user.id%}
-                    <div class="like like-button" data-recipe-id="{{ recipe.id }}">
-                    <i class="fa-solid fa-heart"></i>
-                    </div>
-                {% else %}
-                    <div class="like like-button" data-recipe-id="{{ recipe.id }}">
-                    <i class="fa-regular fa-heart"></i>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-        
-    {% endif %} #}
    
     <div class="divimg" style="width:100%;height: 250px; overflow:hidden">
         <img src="../uploads/{{recipe.image}}" class="card-img img-fluid test" alt="recette de {{recipe.title}}" >
