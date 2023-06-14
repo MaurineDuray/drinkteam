@@ -101,6 +101,7 @@ class AccountController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
+            
             // gestion de mon image
             $file = $form['avatar']->getData();
             if(!empty($file))
@@ -169,6 +170,7 @@ class AccountController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
+            
             // gestion image 
             $user->setAvatar($fileName);
 

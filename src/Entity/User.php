@@ -36,6 +36,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(message:"Vous devez renseigner un mot de passe")]
     private ?string $password = null;
 
+    #[Assert\EqualTo(propertyPath:"password", message:"Vous n'avez pas correctement confirmé votre mot de passe")]
+    public ?string $passwordConfirm = null;
+
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"Vous devez renseigner votre pseudo")]
     private ?string $pseudo = null;
@@ -51,7 +54,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $recettes;
 
   
-    private ?string $passwordConfirm = null;
+
 
     #[ORM\OneToMany(mappedBy: 'idUser', targetEntity: Comments::class, orphanRemoval: true)]
     private Collection $comments;
