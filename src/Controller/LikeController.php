@@ -35,11 +35,6 @@ class LikeController extends AbstractController
 
         $referer = $request->headers->get('referer');
 
-            $this->addFlash(
-                "success",
-                "Vous avez aimé la recette : ".$recipe->getTitle().""
-            );
-
         return new RedirectResponse($referer);
          
     }

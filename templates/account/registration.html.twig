@@ -9,7 +9,11 @@
         <div class="row">
             <div class="col-md-6 offset-md-3 bg-light p-3">
                 <h1>Inscription au site </h1>
-               
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
                 {{form_start(myform)}}
                     {{form_widget(myform)}}
                     <input type="submit" class="btn btn-warning" value="Confirmer mon inscription">
