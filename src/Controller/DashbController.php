@@ -72,7 +72,7 @@ class DashbController extends AbstractController
     {
         $this->addFlash(
             'success',
-            "L'utilisateur <strong>{$user->getId()}</strong> a bien été supprimé"
+            "L'utilisateur {$user->getId()} a bien été supprimé"
         );
 
         if($user->getAvatar())

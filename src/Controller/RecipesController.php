@@ -166,7 +166,7 @@ class RecipesController extends AbstractController
              */
             $this->addFlash(
                 'success',
-                "L'annonce <strong>{$recipe->getTitle()} - {$recipe->getCategory()}</strong> a bien été enregistrée!"
+                "La recette {$recipe->getTitle()} - {$recipe->getCategory()} a bien été enregistrée!"
             );
 
             return $this->redirectToRoute('show_recipe', [
@@ -224,7 +224,7 @@ class RecipesController extends AbstractController
               */
              $this->addFlash(
                  'success',
-                 "L'annonce <strong>{$recipe->getTitle()} - {$recipe->getCategory()}</strong> a bien été enregistrée!"
+                 "La recette {$recipe->getTitle()} - {$recipe->getCategory()} a bien été enregistrée!"
              );
  
              return $this->redirectToRoute('show_recipe', [
