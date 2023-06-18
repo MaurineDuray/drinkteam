@@ -98,7 +98,7 @@ class DashbController extends AbstractController
         $manager->remove($user);
         $manager->flush();
 
-        return $this->redirectToRoute('recettes_index');
+        return $this->redirectToRoute('dashboard_users');
 
 
     }
