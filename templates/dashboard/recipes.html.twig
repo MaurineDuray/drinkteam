@@ -28,7 +28,7 @@
                  <tr>
                     <td>{{recette.id}}</td>
                     <td>{{recette.category}}</td>
-                    <td>{{recette.title}}</td>
+                    <td><a href={{path('show_recipe',{'slug': recette.slug})}}>{{recette.title}}</a></td>
                     <td>{{recette.idUser.pseudo}}</td>
                     <td>
                         <a class="btn btn-success" href="{{path('edit_recipe',{'slug':recette.slug})}}">Modifier</a>
