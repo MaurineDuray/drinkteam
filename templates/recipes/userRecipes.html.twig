@@ -21,7 +21,7 @@
     </div>
 
     <div class="container">
-        <h2 class="orange">Recettes de l'utilisateur: {{app.request.get('id') | capitalize}} </h2>
+        <h2 class="orange">Recettes de l'utilisateur: <i>{{utilisateur.pseudo}} </i></h2>
         <div class="row d-flex justify-content-md-around">
             {% for data in recettes %}
                {% include "./partials/recipeCardNote.html.twig" with {'recipe': data.recipe} %}

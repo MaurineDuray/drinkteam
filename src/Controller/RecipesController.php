@@ -14,6 +14,7 @@ use App\Form\CommentType;
 use App\Form\ModifyRecipeType;
 use App\Service\PaginationService;
 use App\Repository\RecipesRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -112,12 +113,14 @@ class RecipesController extends AbstractController
      * Trouver les recettes d'un utilisateur
      */
     #[Route('recettes/user/{id}', name:'recipes_of')]
-    public function recetteOfUser(RecipesRepository $repo, Request $request):Response
+    public function recetteOfUser(RecipesRepository $repo, Request $request, UserRepository $userrepo):Response
     {
         $user=$request->get('id');
         $recettes = $repo->findByUser($user);
+        $utilisateur = $userrepo->findOneById($request->get('id'));
         return $this->render('recipes/userRecipes.html.twig',[
-            'recettes'=>$recettes
+            'recettes'=>$recettes,
+            'utilisateur'=>$utilisateur
         ]);
     }
 
@@ -186,23 +189,17 @@ class RecipesController extends AbstractController
     #[Security("(is_granted('ROLE_USER') and user === recipe.getIdUser()) or is_granted('ROLE_ADMIN')", message:"Cette recette ne vous appartient pas, vous ne pouvez pas la modifier")]
     public function edit(Request $request, EntityManagerInterface $manager, Recipes $recipe):Response
     {
+       
         $form = $this->createForm(ModifyRecipeType::class, $recipe);
         $form->handleRequest($request);
-    
+
         if($form->isSubmitted() && $form->isValid())
         {  
-           
+               
              /**Gestion de l'image de couverture */
              $file = $form['image']->getData();
              if (!empty($file)) {
-                if($recipe->getImage()){
-                    foreach ($recipe as $img) {
-                        unlink($this->getParameter('uploads_directory').'/'.$img->getImage());
-                    }
-                    
-                }
                 
-
                 $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = transliterator_transliterate('Any-Latin;Latin-ASCII;[^A-Za-z0-9_]remove;Lower()', $originalFilename);
                 $newFilename = $safeFilename . "-" . uniqid() . "." . $file->guessExtension();
