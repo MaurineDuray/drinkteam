@@ -44,6 +44,7 @@ class ModifyRecipeType extends ApplicationType
                 "label"=> "Image de la recette(jpg, jpeg, png)",
                 'data_class'=>null,
                 "required"=>false,
+                
             ])
             ->add('ingredient', TextareaType::class, $this->getConfiguration("Ingrédients", "Ingédients de la recette"))
             ->add('steps', TextareaType::class, $this->getConfiguration("Étapes", "Étapes de la recette"))

@@ -6,6 +6,7 @@
 parameters:
     uploads_directory: "%kernel.project_dir%/public/uploads"
 services:
+   
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
@@ -25,3 +26,5 @@ services:
     App\Service\PaginationService:
         arguments:
             $templatePath: 'admin/partials/_pagination.html.twig'
+
+   

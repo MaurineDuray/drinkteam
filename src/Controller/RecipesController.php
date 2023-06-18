@@ -12,15 +12,17 @@ use App\Form\SearchType;
 use Symfony\Flex\Recipe;
 use App\Form\CommentType;
 use App\Form\ModifyRecipeType;
+use App\Repository\UserRepository;
 use App\Service\PaginationService;
 use App\Repository\RecipesRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -187,19 +189,20 @@ class RecipesController extends AbstractController
      */
     #[Route('/recettes/{slug}/edit', name:'edit_recipe')]
     #[Security("(is_granted('ROLE_USER') and user === recipe.getIdUser()) or is_granted('ROLE_ADMIN')", message:"Cette recette ne vous appartient pas, vous ne pouvez pas la modifier")]
-    public function edit(Request $request, EntityManagerInterface $manager, Recipes $recipe):Response
+    public function edit(Request $request, EntityManagerInterface $manager, Recipes $recipe,SluggerInterface $slugger, Filesystem $filesystem):Response
     {
        
         $form = $this->createForm(ModifyRecipeType::class, $recipe);
         $form->handleRequest($request);
 
+
         if($form->isSubmitted() && $form->isValid())
         {  
-               
-             /**Gestion de l'image de couverture */
-             $file = $form['image']->getData();
-             if (!empty($file)) {
-                
+            
+            $file = $form['image']->getData();
+            if (!empty($file)) {
+  
+
                 $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = transliterator_transliterate('Any-Latin;Latin-ASCII;[^A-Za-z0-9_]remove;Lower()', $originalFilename);
                 $newFilename = $safeFilename . "-" . uniqid() . "." . $file->guessExtension();
@@ -212,7 +215,8 @@ class RecipesController extends AbstractController
                     return $e->getMessage();
                 }
                 $recipe->setImage($newFilename);
-             }
+            }
+
              $recipe->setIdUser($this->getUser());
       
  

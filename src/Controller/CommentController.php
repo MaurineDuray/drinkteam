@@ -99,7 +99,7 @@ class CommentController extends AbstractController
             'success',
             "Votre image a bien été supprimée"
         );
-
+        
        
         unlink($this->getParameter('uploads_directory').'/'.$galery->getPicture());
 
