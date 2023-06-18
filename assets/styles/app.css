@@ -296,7 +296,7 @@ footer{
 }
 .footer nav ul{
     display: flex;
-   
+    flex-wrap: wrap;
 }
 .footer nav ul li{
     padding: 10px;
@@ -309,4 +309,12 @@ footer{
     text-decoration: underline;
     color: white;
 
+}
+@media all and (max-width:530px){
+    .footer{
+       flex-wrap: wrap;
+    }
+    .footer .logo{
+        margin-top: 20px;
+    }
 }

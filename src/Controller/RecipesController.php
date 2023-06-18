@@ -188,31 +188,34 @@ class RecipesController extends AbstractController
     {
         $form = $this->createForm(ModifyRecipeType::class, $recipe);
         $form->handleRequest($request);
-
+    
         if($form->isSubmitted() && $form->isValid())
-        {
-            
+        {  
+           
              /**Gestion de l'image de couverture */
              $file = $form['image']->getData();
              if (!empty($file)) {
+                if($recipe->getImage()){
+                    foreach ($recipe as $img) {
+                        unlink($this->getParameter('uploads_directory').'/'.$img->getImage());
+                    }
+                    
+                }
+                
 
-
-                 $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-                 $safeFilename = transliterator_transliterate('Any-Latin;Latin-ASCII;[^A-Za-z0-9_]remove;Lower()', $originalFilename);
-                 $newFilename = $safeFilename . "-" . uniqid() . "." . $file->guessExtension();
-                 try {
-                     $file->move(
-                         $this->getParameter('uploads_directory'),
-                         $newFilename
-                     );
-                 } catch (FileException $e) {
-                     return $e->getMessage();
-                 }
-                 $recipe->setImage($newFilename);
-             }else{
-                $recipe->setImage($recipe->getImage());
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin;Latin-ASCII;[^A-Za-z0-9_]remove;Lower()', $originalFilename);
+                $newFilename = $safeFilename . "-" . uniqid() . "." . $file->guessExtension();
+                try {
+                    $file->move(
+                        $this->getParameter('uploads_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    return $e->getMessage();
+                }
+                $recipe->setImage($newFilename);
              }
- 
              $recipe->setIdUser($this->getUser());
       
  
@@ -243,8 +246,6 @@ class RecipesController extends AbstractController
     #[Route('/recettes/{slug}', name:'show_recipe')]
     public function showRecipe(string $slug, Recipes $recipe, Request $request,EntityManagerInterface $manager):Response
     {
-
-        
         $comment = new Comments();
 
         $form = $this->createForm(CommentType::class, $comment);
@@ -363,11 +364,20 @@ class RecipesController extends AbstractController
     {
         $this->addFlash(
             'success',
-            "La recette {$recipe->getTitle()}a été supprimée"
+            "La recette {$recipe->getTitle()} a été supprimée"
         );
-        
-            
-        
+
+        // suppression des images de la galerie
+        $images = $recipe->getGaleries();
+        if($images){
+            foreach ($images as $image) {
+                unlink($this->getParameter('uploads_directory').'/'.$image->getPicture());
+
+                $manager->remove($image);
+                $manager->flush();
+            }
+        }
+
         unlink($this->getParameter('uploads_directory').'/'.$recipe->getImage());
      
         

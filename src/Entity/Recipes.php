@@ -79,7 +79,7 @@ class Recipes
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Like::class, orphanRemoval: true, cascade:["persist"])]
     private Collection $likes;
 
-    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Galery::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Galery::class, orphanRemoval: false)]
     private Collection $galeries;
 
     public function __construct()
