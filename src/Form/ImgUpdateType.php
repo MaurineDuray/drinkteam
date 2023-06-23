@@ -13,7 +13,7 @@ class ImgUpdateType extends AbstractType
     {
         $builder
             ->add('newImage', FileType::class, [
-                'label' => 'Image(jpg,png,gif)'
+                'label' => 'Nouvelle image (jpg,png,gif)'
             ])
         ;
     }

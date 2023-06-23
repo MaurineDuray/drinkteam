@@ -6,11 +6,13 @@ use App\Entity\Like;
 use App\Entity\Galery;
 use App\Entity\Recipes;
 use App\Entity\Comments;
+use App\Entity\RecipeImgModify;
 use App\Form\GaleryType;
 use App\Form\RecipeType;
 use App\Form\SearchType;
 use Symfony\Flex\Recipe;
 use App\Form\CommentType;
+use App\Form\ImgUpdateType;
 use App\Form\ModifyRecipeType;
 use App\Repository\UserRepository;
 use App\Service\PaginationService;
@@ -20,6 +22,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -189,37 +192,29 @@ class RecipesController extends AbstractController
      */
     #[Route('/recettes/{slug}/edit', name:'edit_recipe')]
     #[Security("(is_granted('ROLE_USER') and user === recipe.getIdUser()) or is_granted('ROLE_ADMIN')", message:"Cette recette ne vous appartient pas, vous ne pouvez pas la modifier")]
-    public function edit(Request $request, EntityManagerInterface $manager, Recipes $recipe,SluggerInterface $slugger, Filesystem $filesystem):Response
+    public function edit(Request $request, EntityManagerInterface $manager, Recipes $recipe):Response
     {
        
+        $fileName = $recipe->getImage();
+        
+        if(!empty($fileName))
+        {
+            $recipe->setImage(
+                new File($this->getParameter('uploads_directory').'/'.$fileName)
+            );
+        } 
+
         $form = $this->createForm(ModifyRecipeType::class, $recipe);
         $form->handleRequest($request);
 
 
         if($form->isSubmitted() && $form->isValid())
         {  
-            
-            $file = $form['image']->getData();
-            if (!empty($file)) {
-  
-
-                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = transliterator_transliterate('Any-Latin;Latin-ASCII;[^A-Za-z0-9_]remove;Lower()', $originalFilename);
-                $newFilename = $safeFilename . "-" . uniqid() . "." . $file->guessExtension();
-                try {
-                    $file->move(
-                        $this->getParameter('uploads_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    return $e->getMessage();
-                }
-                $recipe->setImage($newFilename);
-            }
 
              $recipe->setIdUser($this->getUser());
       
- 
+                
+             $recipe->setImage($fileName);
              $manager->persist($recipe);
              $manager->flush();
  
@@ -238,6 +233,66 @@ class RecipesController extends AbstractController
 
         return $this->render("recipes/edit.html.twig", [
             'myform' => $form->createView()
+        ]);
+    }
+
+     /**
+     * Permet de modifier l'image de la recette
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    #[Route("/recipe/{slug}/imgmodify", name:"recipe_imgmodify")]
+    public function imgModify(Recipes $recipe, Request $request, EntityManagerInterface $manager): Response
+    {
+        $imgModify = new RecipeImgModify();
+        $form = $this->createForm(ImgUpdateType::class, $imgModify);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            // supprimer l'image dans le dossier
+            if(!empty($recipe->getImage()))
+            {
+                unlink($this->getParameter('uploads_directory').'/'.$recipe->getImage());
+            }
+
+            $file = $form['newImage']->getData();
+            if(!empty($file))
+            {
+                $originalFilename = pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin;Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename."-".uniqid().".".$file->guessExtension();
+                try{
+                    $file->move(
+                        $this->getParameter('uploads_directory'),
+                        $newFilename
+                    );
+                }catch(FileException $e)
+                {
+                    return $e->getMessage();
+                }
+                $recipe->setImage($newFilename);
+            }
+
+            $manager->persist($recipe);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'L\'image de la recette a bien été modifiée'
+            );
+
+            return $this->redirectToRoute('show_recipe', [
+                'slug' => $recipe->getSlug()
+            ]);
+
+        }
+
+        return $this->render("recipes/imgModify.html.twig",[
+            'myform' => $form->createView(),
+            'recette'=>$recipe
         ]);
     }
 
