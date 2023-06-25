@@ -3,7 +3,7 @@
 {% block title %}User - {{user.pseudo}}{% endblock %}
 
 {% block body %}
-<div class="slide container">
+<div class="slide container" style="min-height:100px !important">
 <a href="{{path('recettes_index')}}"><button class="btn btn-warning m-3"><< Retour aux recettes</button></a>
 
         {% for message in app.flashes('success') %}
@@ -17,7 +17,6 @@
 <div class="container my-5">
 
     <h3 class="orange">Vos recettes likées</h3>
-    
     
     <div class="row d-flex justify-content-md-around">
     {% if user.likes | length > 0 %}

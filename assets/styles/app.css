@@ -82,6 +82,8 @@ a:hover{
 }
 .slide{
     padding-top: 150px;
+    
+    overflow-x: hidden;
 }
 .slidefill{
     padding-top: 150px;

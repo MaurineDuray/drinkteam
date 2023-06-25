@@ -4,7 +4,7 @@
 {% form_theme myform 'bootstrap_5_layout.html.twig' %}
 
 {% block body %}
-    <div class="slide container">
+    <div class="slide container" style="min-height: 100vh">
         <h1>Modification de l'avatar de {{app.user.pseudo}}</h1>
         {% if app.user.avatar %}
             <img style="max-height: 150px" src="../../uploads/{{app.user.avatar}}" alt="avatar de {{app.user.pseudo}}">
